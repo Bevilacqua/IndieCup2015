@@ -1,41 +1,57 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Class of methods to create and alter a map. 
+/// Not to be used to manage current map.
+/// Use Map_Manager class to call these methods.
+/// </summary>
 public class Map_Creator : MonoBehaviour {
-    public GameObject tile;
+    public GameObject prefab_defaultTile;
+    public GameObject prefab_mapParent;
 
+    /// <summary>
+    /// Debugging use only.
+    /// </summary>
     void Start()
     {
-        createMap(5, 2);
     }
 
     /// <summary>
-    /// Creates a hex-map cenetered at (0,0)
+    /// Creates a blank map centered at (0,0) using the default tile gameobject provided as a paramater of this class.
     /// </summary>
-    /// <param name="maxTiles">The maximum amount of tiles per row. The row with max tiles will be the center row.</param>
-    /// <param name="minTiles">The minimum amount of tiles per row.</param>
-    public void createMap(int maxTiles, int minTiles)
+    /// <param name="rows">The number of rows in the map.</param>
+    /// <param name="cols">The number of columns in the map.</param>
+    /// <returns>The gameobject of the map parent object. </returns>
+    public GameObject createMap(int rows, int cols)
     {
-        int height = ( ( maxTiles + (maxTiles - 1) ) - ( (minTiles - 1) * 2 ) );
-        int top = Mathf.FloorToInt(height / 2f);
-        int bottom = -top;
+        GameObject[,] map = new GameObject[cols, rows];
+        GameObject mapParent = (GameObject) Instantiate(prefab_mapParent, new Vector3(), prefab_mapParent.transform.localRotation);
+        bool offset = false;
 
-        int tilesPerRow = minTiles;
+        if(rows % 2 == 0) //Ensure that the center tile is at position (0,0)
+            offset = true;
+        
 
-        for (int y = top; y >= bottom; y--)
+        for (int y = 0; y < rows; y++)
         {
-            if (y > 0) tilesPerRow++;
-            else tilesPerRow--;
-
-            for (int x = 0; x < tilesPerRow; x++)
+            for(int x = 0; x < cols; x++)
             {
-                Instantiate(tile, new Vector3(x * .865f, 0f, y * .75f), tile.transform.localRotation);
+                Vector3 location = new Vector3();
+
+                if (!offset) location.Set(((Mathf.FloorToInt(-cols / 2f) * .865f) + (x * .865f)) , 0f, (((rows * .75f) / 2f) - ( y * .75f)));
+                else location.Set(((Mathf.FloorToInt(-cols / 2f) * .865f) + (x * .865f)) - (.865f / 2f), 0f, (((rows * .75f) / 2f) - ( y * .75f)));
+
+                GameObject currentTile = (GameObject) Instantiate(prefab_defaultTile, location, prefab_defaultTile.transform.localRotation);
+                currentTile.transform.parent = mapParent.transform;
+                Debug.Log("Tile (" + x + " , " + y + ") @ - [" + currentTile.transform.position.x + " , " + currentTile.transform.position.z + " ]");
+                map[x,y] = currentTile;
             }
 
-            y--;
+            offset = !offset;
         }
 
-       
-
+            mapParent.GetComponent<Map_Info>().setTileMap(map);
+            return mapParent;
     }
 }
