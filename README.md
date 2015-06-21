@@ -17,6 +17,7 @@ The following mechanics are planned for the initial release at the end of the #i
 - [ ] Upgradable temple
 - [ ] Randomly generated towers
 - [ ] Randomly gnerated enemies
+- [ ] Tile graph traversal
 - [ ] Enemy pathfinding
 
 The following mechanics would be nice but may not appear in the initial release.
