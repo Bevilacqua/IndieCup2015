@@ -1,5 +1,5 @@
 # IndieCup2015
-_@Indiecup2015 #1GAM July_
+_#Indiecup2015 #1GAM July_
 
 ## Participation
 This game is created in participation of both
