@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Assets.Scripts.Non_Mono;
 
 public class Map_Info : MonoBehaviour {
+    public float scale = 2.5f;
+
     private GameObject[,] tileMap;
     private Graph mapGraph;
 
@@ -47,7 +49,7 @@ public class Map_Info : MonoBehaviour {
             }
         }
 
-        crawlPaths(mapGraph.getNodeList(), 0);
+        crawlPaths(mapGraph.getNodeList());
 
         mapGraph.printGraph();
     }
@@ -55,9 +57,9 @@ public class Map_Info : MonoBehaviour {
     /// <summary>
     /// Crawl all paths to find viable paths and add edges.
     /// </summary>
-    public void crawlPaths(List<Node> nodeList, int index)
+    public void crawlPaths(List<Node> nodeList)
     {
-        for(int i = index; i < nodeList.Count; i++)
+        for(int i = 0; i < nodeList.Count; i++)
         {
             List<GameObject> possibleNeighbors = new List<GameObject>();
             Vector2 nodeTileLocation = new Vector2(nodeList[i].getGameObject().GetComponent<Tile_Info>().getTileMapCoords().x, nodeList[i].getGameObject().GetComponent<Tile_Info>().getTileMapCoords().y);
@@ -86,5 +88,10 @@ public class Map_Info : MonoBehaviour {
             }
         }
         
+    }
+
+    public void updateScale()
+    {
+        transform.localScale *= scale;
     }
 }

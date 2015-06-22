@@ -55,7 +55,10 @@ public class Map_Creator : MonoBehaviour {
         }
 
             mapParent.GetComponent<Map_Info>().setTileMap(map);
-            mapParent.GetComponent<Map_Info>().setDimensions(rows, cols);
+            mapParent.GetComponent<Map_Info>().setDimensions(cols, rows);
+
+            mapParent.GetComponent<Map_Info>().updateScale();
+
             return mapParent;
     }
 }

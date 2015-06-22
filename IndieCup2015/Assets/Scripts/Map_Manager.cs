@@ -10,6 +10,7 @@ public class Map_Manager : MonoBehaviour {
 	void Start () {
         creator = gameObject.GetComponent<Map_Creator>();
         creator.createMap(height, width);
+
 	}
 	
 	// Update is called once per frame
