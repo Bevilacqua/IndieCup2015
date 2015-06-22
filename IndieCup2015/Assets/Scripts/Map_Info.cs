@@ -7,9 +7,12 @@ public class Map_Info : MonoBehaviour {
     public float scale = 2.5f;
 
     private GameObject[,] tileMap;
+    
     private Graph mapGraph;
+    private List<Node> objectivePath = new List<Node>();
 
     private int tileMapWidth, tileMapHeight;
+    private Node startNode, endNode;
 
     void Start()
     {
@@ -90,8 +93,36 @@ public class Map_Info : MonoBehaviour {
         
     }
 
+    private List<Node> createObjectivePath()
+    {
+        List<Node> finalPath = new List<Node>();
+
+        List<Node> closedSet = new List<Node>();
+        List<Node> openSet = new List<Node>();
+        //TODO: Add start node to openSet
+
+        return finalPath;
+    }
+
+    private float calculateHeuristic(Node start, Node goal)
+    {
+        float yDiff = (start.getMapCoordinates().y - goal.getMapCoordinates().y);
+        yDiff = Mathf.Abs(yDiff);
+
+        float xDiff = (start.getMapCoordinates().x - goal.getMapCoordinates().x);
+        xDiff = Mathf.Abs(xDiff);
+
+        return yDiff + xDiff;
+    }
+
     public void updateScale()
     {
         transform.localScale *= scale;
+    }
+
+    public void updateKeyPathValues(Node start, Node end)
+    {
+        this.startNode = start;
+        this.endNode = end;
     }
 }

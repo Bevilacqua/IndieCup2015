@@ -18,6 +18,9 @@ namespace Assets.Scripts.Non_Mono
         //Position extracted from current node's game object
         private Vector3 position;
 
+        private float gScore = -1f;
+        private float fScore = -1f;
+
         /// <summary>
         /// Node constructor
         /// </summary>
@@ -84,6 +87,26 @@ namespace Assets.Scripts.Non_Mono
             }
 
             return false;
+        }
+
+        public float getGScore()
+        {
+            return gScore;
+        }
+
+        public float getFScore()
+        {
+            return fScore;
+        }
+
+        public void setGScore(float gScore)
+        {
+            this.gScore = gScore;
+        }
+
+        public void setFScore(float fScore)
+        {
+            this.fScore = fScore;
         }
     }
 }
