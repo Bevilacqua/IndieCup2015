@@ -31,7 +31,6 @@ public class Map_Creator : MonoBehaviour {
 
         if(rows % 2 == 0) //Ensure that the center tile is at position (0,0)
             offset = true;
-        
 
         for (int y = 0; y < rows; y++)
         {
@@ -44,8 +43,12 @@ public class Map_Creator : MonoBehaviour {
 
                 GameObject currentTile = (GameObject) Instantiate(prefab_defaultTile, location, prefab_defaultTile.transform.localRotation);
                 currentTile.transform.parent = mapParent.transform;
+
+                //Debug: Every other tile is transversable
                 if (x % 2 == 0)
                     currentTile.GetComponent<Tile_Info>().setTransversable(true);
+                //EndDebug
+
                 currentTile.GetComponent<Tile_Info>().assignInfo(new Vector2(x, y));
 //                Debug.Log("Tile (" + x + " , " + y + ") @ - [" + currentTile.transform.position.x + " , " + currentTile.transform.position.z + " ]");
                 map[x,y] = currentTile;

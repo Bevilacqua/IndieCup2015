@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Manager_Tile : MonoBehaviour {
+public class Tile_Manager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -15,10 +15,20 @@ public class Manager_Tile : MonoBehaviour {
 
     void OnMouseEnter()
     {
-        transform.position = new Vector3(transform.position.x, .25f, transform.position.z);
+        liftTile();
     }
 
     void OnMouseExit()
+    {
+        lowerTile();
+    }
+
+    public void liftTile()
+    {
+        transform.position = new Vector3(transform.position.x, .25f, transform.position.z);
+    }
+
+    public void lowerTile()
     {
         transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
     }

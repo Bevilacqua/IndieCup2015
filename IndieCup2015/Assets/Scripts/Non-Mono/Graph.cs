@@ -32,7 +32,7 @@ namespace Assets.Scripts.Non_Mono
             if (nodeList.Count == 0) return;
             foreach(Node node in nodeList) 
             {
-                Debug.Log("Node # " + index + " | @ X: " + node.getMapCoordinates().x + "(" + node.getGameObject().transform.position.x + ") , Y: " + node.getMapCoordinates().y + "(" + node.getGameObject().transform.position.z + ") | The node has " + node.getNeighborCount() + " neighbor[s]");
+                Debug.Log("Node # " + index + " | @ X: " + node.getMapCoordinates().x + "(" + node.getGameObject().transform.localPosition.x + ") , Y: " + node.getMapCoordinates().y + "(" + node.getGameObject().transform.localPosition.z + ") | The node has " + node.getNeighborCount() + " neighbor[s]");
                 index++;   
             }
         }

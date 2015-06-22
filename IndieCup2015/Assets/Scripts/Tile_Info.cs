@@ -4,7 +4,7 @@ using Assets.Scripts.Non_Mono;
 
 public class Tile_Info : MonoBehaviour {
     public bool transversable = false;
-
+    
     private Node node;
     private Vector2 tileMapCoords;
 
