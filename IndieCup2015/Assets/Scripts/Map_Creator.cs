@@ -44,7 +44,10 @@ public class Map_Creator : MonoBehaviour {
 
                 GameObject currentTile = (GameObject) Instantiate(prefab_defaultTile, location, prefab_defaultTile.transform.localRotation);
                 currentTile.transform.parent = mapParent.transform;
-                Debug.Log("Tile (" + x + " , " + y + ") @ - [" + currentTile.transform.position.x + " , " + currentTile.transform.position.z + " ]");
+                if (x % 2 == 0)
+                    currentTile.GetComponent<Tile_Info>().setTransversable(true);
+                currentTile.GetComponent<Tile_Info>().assignInfo(new Vector2(x, y));
+//                Debug.Log("Tile (" + x + " , " + y + ") @ - [" + currentTile.transform.position.x + " , " + currentTile.transform.position.z + " ]");
                 map[x,y] = currentTile;
             }
 
@@ -52,6 +55,7 @@ public class Map_Creator : MonoBehaviour {
         }
 
             mapParent.GetComponent<Map_Info>().setTileMap(map);
+            mapParent.GetComponent<Map_Info>().setDimensions(rows, cols);
             return mapParent;
     }
 }

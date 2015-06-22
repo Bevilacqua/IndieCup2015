@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Assets.Scripts.Non_Mono
 {
 
-    class Node
+    public class Node
     {
         private List<Edge> usableEdges = new List<Edge>();
         //Map coordinates of tilemap
@@ -61,12 +61,29 @@ namespace Assets.Scripts.Non_Mono
 
         public Vector2 getMapCoordinates()
         {
-            return this.getMapCoordinates();
+            return this.tileMapCoordinates;
         }
 
         public int getNeighborCount()
         {
             return getNeighboringNodes().Count();
+        }
+
+        public void addEdge(Node destination)
+        {
+            usableEdges.Add(new Edge(this, destination));
+            destination.usableEdges.Add(new Edge(destination, this));       
+        }
+
+        public bool doesEdgeExist(Node destination)
+        {
+            foreach(Edge edge in usableEdges)
+            {
+                if (edge.getNodes()[0].Equals(destination) || edge.getNodes()[1].Equals(destination))
+                    return true;
+            }
+
+            return false;
         }
     }
 }

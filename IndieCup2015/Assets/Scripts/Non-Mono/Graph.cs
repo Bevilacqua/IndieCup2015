@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Non_Mono
 {
-    class Graph
+    public class Graph
     {
         private List<Node> nodeList = new List<Node>();
 
@@ -20,12 +20,19 @@ namespace Assets.Scripts.Non_Mono
             return nodeList[index];
         }
 
-        public void printMap()
+        public List<Node> getNodeList()
+        {
+            return this.nodeList;
+        }
+
+
+        public void printGraph()
         {
             int index = 0;
+            if (nodeList.Count == 0) return;
             foreach(Node node in nodeList) 
             {
-                Debug.Log("Node # " + index + " | @ X: " + node.getMapCoordinates().x + " , Y: " + node.getMapCoordinates().y + " | The node has " + node.getNeighborCount() + " neighbor[s]");
+                Debug.Log("Node # " + index + " | @ X: " + node.getMapCoordinates().x + "(" + node.getGameObject().transform.position.x + ") , Y: " + node.getMapCoordinates().y + "(" + node.getGameObject().transform.position.z + ") | The node has " + node.getNeighborCount() + " neighbor[s]");
                 index++;   
             }
         }
