@@ -16,12 +16,23 @@ public class Map_Info : MonoBehaviour {
 
     void Start()
     {
-        populateGraph();
     }
 
-    void Update()
+    public List<Node> init(Vector2 startNode, Vector2 endNode)
     {
-        Debug.Log(endNode.getMapCoordinates().x);
+        populateGraph();
+        crawlPaths(mapGraph.getNodeList());
+        mapGraph.printGraph();
+        this.startNode = tileMap[(int)startNode.x, (int)startNode.y].GetComponent<Tile_Info>().getNode();
+        this.endNode = tileMap[(int)endNode.x, (int)endNode.y].GetComponent<Tile_Info>().getNode();
+
+        //DEBUG
+        this.startNode.getGameObject().GetComponent<Tile_Manager>().liftTile();
+        this.endNode.getGameObject().GetComponent<Tile_Manager>().liftTile();
+
+        Debug.Log(this.startNode.getMapCoordinates());
+
+        return createObjectivePath();
     }
 
     public void setTileMap(GameObject[,] tileMap)
@@ -48,18 +59,14 @@ public class Map_Info : MonoBehaviour {
         mapGraph = new Graph();
         Tile_Info currentTileInfo = null;
 
-        foreach(GameObject gameObject in tileMap) {
-            currentTileInfo = gameObject.GetComponent<Tile_Info>();    
+        foreach(GameObject currentGameObject in tileMap) {
+            currentTileInfo = currentGameObject.GetComponent<Tile_Info>();    
 
             if(currentTileInfo.transversable)
             {
                 mapGraph.addNode(currentTileInfo.getNode());
             }
         }
-
-        crawlPaths(mapGraph.getNodeList());
-
-        mapGraph.printGraph();
     }
 
     /// <summary>

@@ -45,7 +45,7 @@ public class Map_Creator : MonoBehaviour {
                 currentTile.transform.parent = mapParent.transform;
 
                 //Debug: Every other tile is transversable
-                if (x % 2 == 0)
+ //               if (x % 2 == 0)
                     currentTile.GetComponent<Tile_Info>().setTransversable(true);
                 //EndDebug
 
@@ -56,7 +56,6 @@ public class Map_Creator : MonoBehaviour {
 
             offset = !offset;
         }
-
             mapParent.GetComponent<Map_Info>().setTileMap(map);
             mapParent.GetComponent<Map_Info>().setDimensions(cols, rows);
 

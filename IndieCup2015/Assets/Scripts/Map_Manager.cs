@@ -20,10 +20,11 @@ public class Map_Manager : MonoBehaviour {
         map = creator.createMap(height, width);
 
         map_info = map.GetComponent<Map_Info>();
-        map_info.getTileMap()[(int)spawnLocation.x, (int)spawnLocation.y].GetComponent<Tile_Manager>().liftTile();
         goalLocation.Set((int)width / 2, (int)height / 2);
-        map_info.getTileMap()[(int)goalLocation.x, (int)goalLocation.y].GetComponent<Tile_Manager>().liftTile();
-        map_info.updateKeyPathValues(map_info.getTileMap()[(int)spawnLocation.x, (int)spawnLocation.y].GetComponent<Tile_Info>().getNode() , map_info.getTileMap()[(int)goalLocation.x, (int)goalLocation.y].GetComponent<Tile_Info>().getNode());
+        foreach(Node node in map_info.init(spawnLocation, goalLocation))
+        {
+            node.getGameObject().GetComponent<Tile_Manager>().liftTile();
+        }
     }
 	
 	// Update is called once per frame
