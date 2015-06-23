@@ -20,7 +20,7 @@ public class Map_Manager : MonoBehaviour {
         map = creator.createMap(height, width);
 
         map_info = map.GetComponent<Map_Info>();
-        goalLocation.Set((int)width / 2, (int)height / 2);
+//        goalLocation.Set((int)width / 2, (int)height / 2);
         foreach(Node node in map_info.init(spawnLocation, goalLocation))
         {
             //DEBUG:

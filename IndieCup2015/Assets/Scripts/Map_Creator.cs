@@ -44,8 +44,8 @@ public class Map_Creator : MonoBehaviour {
                 GameObject currentTile = (GameObject) Instantiate(prefab_defaultTile, location, prefab_defaultTile.transform.localRotation);
                 currentTile.transform.parent = mapParent.transform;
 
-                //Debug: Every other tile is transversable
- //               if (x % 2 == 0)
+                //Debug: Random tiles are transversable
+                if (Random.Range(0,100) % 2 == 0 || x == 3 || x == 1)
                     currentTile.GetComponent<Tile_Info>().setTransversable(true);
                 //EndDebug
 

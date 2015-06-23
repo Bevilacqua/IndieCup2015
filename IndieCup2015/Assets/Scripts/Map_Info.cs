@@ -30,8 +30,6 @@ public class Map_Info : MonoBehaviour {
         this.startNode.getGameObject().GetComponent<Tile_Manager>().liftTile();
         this.endNode.getGameObject().GetComponent<Tile_Manager>().liftTile();
 
-        Debug.Log(this.startNode.getMapCoordinates());
-
         return createObjectivePath();
     }
 
@@ -183,7 +181,7 @@ public class Map_Info : MonoBehaviour {
         float xDiff = (start.getMapCoordinates().x - goal.getMapCoordinates().x);
         xDiff = Mathf.Abs(xDiff);
 
-        return 1 * (xDiff + yDiff) + (1.4141f - 2f * 1) * Mathf.Min(xDiff, yDiff);
+        return 1 * (xDiff + yDiff) + (1.41421356237f - 2f * 1) * Mathf.Min(xDiff, yDiff);
     }
 
     /// <summary>
