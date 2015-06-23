@@ -183,7 +183,7 @@ public class Map_Info : MonoBehaviour {
         float xDiff = (start.getMapCoordinates().x - goal.getMapCoordinates().x);
         xDiff = Mathf.Abs(xDiff);
 
-        return yDiff + xDiff;
+        return 1 * (xDiff + yDiff) + (1.4141f - 2f * 1) * Mathf.Min(xDiff, yDiff);
     }
 
     /// <summary>

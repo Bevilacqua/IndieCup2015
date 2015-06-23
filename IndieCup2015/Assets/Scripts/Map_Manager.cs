@@ -23,6 +23,7 @@ public class Map_Manager : MonoBehaviour {
         goalLocation.Set((int)width / 2, (int)height / 2);
         foreach(Node node in map_info.init(spawnLocation, goalLocation))
         {
+            //DEBUG:
             node.getGameObject().GetComponent<Tile_Manager>().liftTile();
         }
     }
