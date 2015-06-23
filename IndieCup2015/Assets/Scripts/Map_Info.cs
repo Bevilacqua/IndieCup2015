@@ -19,6 +19,11 @@ public class Map_Info : MonoBehaviour {
         populateGraph();
     }
 
+    void Update()
+    {
+        Debug.Log(endNode.getMapCoordinates().x);
+    }
+
     public void setTileMap(GameObject[,] tileMap)
     {
         this.tileMap = tileMap;
@@ -93,15 +98,74 @@ public class Map_Info : MonoBehaviour {
         
     }
 
-    private List<Node> createObjectivePath()
+    public List<Node> createObjectivePath()
     {
         List<Node> finalPath = new List<Node>();
+        List<Node> came_from = new List<Node>();
 
         List<Node> closedSet = new List<Node>();
         List<Node> openSet = new List<Node>();
-        //TODO: Add start node to openSet
 
-        return finalPath;
+        openSet.Add(startNode);
+
+        startNode.setGScore(0);
+        startNode.setFScore(startNode.getGScore() + calculateHeuristic(startNode, endNode));
+
+        
+        while(openSet.Count != 0)
+        {
+            int index = lowestFScoreInList(openSet);
+            Node current = openSet[index];
+
+            if(current.getMapCoordinates() == this.endNode.getMapCoordinates())
+            {
+                came_from.Reverse();
+                finalPath = came_from;
+                return finalPath;
+            }
+
+            openSet.RemoveAt(index);
+            closedSet.Add(current);
+
+            foreach(Node neighbor in current.getNeighboringNodes())
+            {
+                bool foundInClosedSet = false;
+
+                foreach(Node n in closedSet)
+                {
+                    if (n.getMapCoordinates() == neighbor.getMapCoordinates())
+                    {
+                        foundInClosedSet = true;
+                        break;
+                    }
+                }
+
+                if (foundInClosedSet) continue;
+
+                int newGScore = (int)neighbor.getGScore() + 1;
+
+                bool foundInOpenSet = false;
+
+                foreach(Node n in openSet)
+                {
+                    if(n.getMapCoordinates() == neighbor.getMapCoordinates())
+                    {
+                        foundInOpenSet = true;
+                        break;
+                    }
+                }
+                    
+                if(!foundInOpenSet) //Bug possibility
+                {
+                    came_from.Add(current);
+                    neighbor.setGScore(newGScore);
+                    neighbor.setFScore(newGScore + calculateHeuristic(neighbor, endNode));
+                    openSet.Add(neighbor);
+                }
+
+            }
+        }
+        return null;
     }
 
     private float calculateHeuristic(Node start, Node goal)
@@ -113,6 +177,24 @@ public class Map_Info : MonoBehaviour {
         xDiff = Mathf.Abs(xDiff);
 
         return yDiff + xDiff;
+    }
+
+    /// <summary>
+    /// Searches node list for lowest Fscore.
+    /// </summary>
+    /// <param name="nodeList">List to search in.</param>
+    /// <returns>The index of the node with the lowest F score</returns>
+    private int lowestFScoreInList(List<Node> nodeList)
+    {
+        int lowest = 0;
+
+        for(int i = 0; i < nodeList.Count; i++)
+        {
+            if (nodeList[i].getFScore() < nodeList[lowest].getFScore())
+                lowest = i;
+        }
+
+        return lowest;
     }
 
     public void updateScale()

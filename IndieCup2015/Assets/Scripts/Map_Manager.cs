@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using Assets.Scripts.Non_Mono;
 
 public class Map_Manager : MonoBehaviour {
     public int width = 10;
@@ -22,7 +24,7 @@ public class Map_Manager : MonoBehaviour {
         goalLocation.Set((int)width / 2, (int)height / 2);
         map_info.getTileMap()[(int)goalLocation.x, (int)goalLocation.y].GetComponent<Tile_Manager>().liftTile();
         map_info.updateKeyPathValues(map_info.getTileMap()[(int)spawnLocation.x, (int)spawnLocation.y].GetComponent<Tile_Info>().getNode() , map_info.getTileMap()[(int)goalLocation.x, (int)goalLocation.y].GetComponent<Tile_Info>().getNode());
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
