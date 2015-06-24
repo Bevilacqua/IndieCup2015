@@ -25,6 +25,7 @@ public class Map_Manager : MonoBehaviour {
         {
             //DEBUG:
             node.getGameObject().GetComponent<Tile_Manager>().liftTile();
+            node.getGameObject().GetComponent<MeshRenderer>().material.color = Color.white;
         }
     }
 	

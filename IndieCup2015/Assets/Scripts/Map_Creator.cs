@@ -44,7 +44,7 @@ public class Map_Creator : MonoBehaviour {
 
                 GameObject currentTile = null;
 
-                if (Random.Range(0, 100) % 2 == 0 || x == 3 || x == 1) //TODO: better randomization
+                if (Random.Range(0, 100) % 2 == 0 || x == 7 || x == 0) //TODO: better randomization
                 {
                     currentTile = (GameObject)Instantiate(prefab_pathTile, location, prefab_pathTile.transform.localRotation);
                     currentTile.GetComponent<Tile_Info>().setTransversable(true);
