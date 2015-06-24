@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Assets.Scripts.Non_Mono
 {
-    class Tower
+    public class Tower
     {
-        public static enum Tower_Class
+        public enum Tower_Class
         {
             ATTACK,
             SLOW,
