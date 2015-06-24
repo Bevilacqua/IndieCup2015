@@ -12,7 +12,9 @@ public class Map_Manager : MonoBehaviour {
 
     public Map_Creator creator;
     private Map_Info map_info;
+    private List<Node> path;
 
+    public GameObject enemy;
     private GameObject map;
 	// Use this for initialization
 	void Start () {
@@ -21,17 +23,27 @@ public class Map_Manager : MonoBehaviour {
 
         map_info = map.GetComponent<Map_Info>();
 //        goalLocation.Set((int)width / 2, (int)height / 2);
-        foreach(Node node in map_info.init(spawnLocation, goalLocation))
+        path = map_info.init(spawnLocation, goalLocation);
+
+        foreach(Node node in path)
         {
             //DEBUG:
             node.getGameObject().GetComponent<Tile_Manager>().liftTile();
             node.getGameObject().GetComponent<MeshRenderer>().material.color = Color.white;
         }
+
+        spawnEnemy();
     }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
-}
+
+    public void spawnEnemy()
+    {
+        GameObject obj = (GameObject)Instantiate(enemy, new Vector3(), transform.localRotation);
+        obj.GetComponent<Enemy_Manager>().init(path, this.map.transform);
+    }
+}   
 

@@ -18,7 +18,7 @@ The following mechanics are planned for the initial release at the end of the #i
 - [ ] Randomly generated towers
 - [ ] Randomly generated enemies
 - [x] Tile graph creation 
-- [ ] Enemy pathfinding
+- [x] Enemy pathfinding
 
 The following mechanics would be nice but may not appear in the initial release.
 - [ ] Random map generation

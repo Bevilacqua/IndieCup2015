@@ -122,9 +122,8 @@ public class Map_Info : MonoBehaviour {
             int index = lowestFScoreInList(openSet);
             Node current = openSet[index];
 
-            if(current.getMapCoordinates() == this.endNode.getMapCoordinates())
+            if(current.getMapCoordinates() == endNode.getMapCoordinates())
             {
-                came_from.Reverse();
                 finalPath = came_from;
                 return finalPath;
             }
