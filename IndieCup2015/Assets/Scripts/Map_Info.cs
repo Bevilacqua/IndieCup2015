@@ -169,6 +169,7 @@ public class Map_Info : MonoBehaviour {
 
             }
         }
+        Debug.Log("Path failed to generate");
         return null;
     }
 
@@ -180,7 +181,10 @@ public class Map_Info : MonoBehaviour {
         float xDiff = (start.getMapCoordinates().x - goal.getMapCoordinates().x);
         xDiff = Mathf.Abs(xDiff);
 
-        return 1 * (xDiff + yDiff) + (1.41421356237f - 2f * 1) * Mathf.Min(xDiff, yDiff);
+        if (Mathf.Sign(yDiff) == Mathf.Sign(xDiff))
+            return Mathf.Max(Mathf.Abs(yDiff), Mathf.Abs(xDiff));
+        else
+            return Mathf.Abs(yDiff) + Mathf.Abs(xDiff);
     }
 
     /// <summary>

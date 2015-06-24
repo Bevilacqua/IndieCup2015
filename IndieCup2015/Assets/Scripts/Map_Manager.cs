@@ -32,12 +32,12 @@ public class Map_Manager : MonoBehaviour {
             node.getGameObject().GetComponent<MeshRenderer>().material.color = Color.white;
         }
 
-        spawnEnemy();
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (Input.GetKeyDown(KeyCode.Space))
+            spawnEnemy();
 	}
 
     public void spawnEnemy()
