@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Non_Mono;
 
 public class Tile_Manager : MonoBehaviour {
+    private Tower tower;
 
 	// Use this for initialization
 	void Start () {
@@ -15,12 +17,14 @@ public class Tile_Manager : MonoBehaviour {
 
     void OnMouseEnter()
     {
-        liftTile();
+        if(!gameObject.GetComponent<Tile_Info>().transversable)
+            liftTile();
     }
 
     void OnMouseExit()
     {
-        lowerTile();
+        if (!gameObject.GetComponent<Tile_Info>().transversable)
+            lowerTile();
     }
 
     public void liftTile()
@@ -31,5 +35,22 @@ public class Tile_Manager : MonoBehaviour {
     public void lowerTile()
     {
         transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+    }
+
+    public void setTower(Tower tower)
+    {
+        this.tower = tower;
+
+    }
+
+    public Tower getTower()
+    {
+        return this.tower;
+    }
+
+    public bool hasTower()
+    {
+        if (tower == null) return false;
+        else return true;
     }
 }

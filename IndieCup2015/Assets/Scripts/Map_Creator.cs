@@ -8,6 +8,7 @@ using System.Collections;
 /// </summary>
 public class Map_Creator : MonoBehaviour {
     public GameObject prefab_defaultTile;
+    public GameObject prefab_pathTile;
     public GameObject prefab_mapParent;
 
     /// <summary>
@@ -41,13 +42,19 @@ public class Map_Creator : MonoBehaviour {
                 if (!offset) location.Set(((Mathf.FloorToInt(-cols / 2f) * .865f) + (x * .865f)) , 0f, (((rows * .75f) / 2f) - ( y * .75f)));
                 else location.Set(((Mathf.FloorToInt(-cols / 2f) * .865f) + (x * .865f)) - (.865f / 2f), 0f, (((rows * .75f) / 2f) - ( y * .75f)));
 
-                GameObject currentTile = (GameObject) Instantiate(prefab_defaultTile, location, prefab_defaultTile.transform.localRotation);
-                currentTile.transform.parent = mapParent.transform;
+                GameObject currentTile = null;
 
-                //Debug: Random tiles are transversable
-                if (Random.Range(0,100) % 2 == 0 || x == 3 || x == 1)
+                if (Random.Range(0, 100) % 2 == 0 || x == 3 || x == 1) //TODO: better randomization
+                {
+                    currentTile = (GameObject)Instantiate(prefab_pathTile, location, prefab_pathTile.transform.localRotation);
                     currentTile.GetComponent<Tile_Info>().setTransversable(true);
-                //EndDebug
+                }
+                else
+                {
+                    currentTile = (GameObject)Instantiate(prefab_defaultTile, location, prefab_defaultTile.transform.localRotation);
+                }
+
+                currentTile.transform.parent = mapParent.transform;
 
                 currentTile.GetComponent<Tile_Info>().assignInfo(new Vector2(x, y));
 //                Debug.Log("Tile (" + x + " , " + y + ") @ - [" + currentTile.transform.position.x + " , " + currentTile.transform.position.z + " ]");
