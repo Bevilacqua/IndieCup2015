@@ -3,11 +3,13 @@ using System.Collections;
 using Assets.Scripts.Non_Mono;
 
 public class Tile_Manager : MonoBehaviour {
-    private Tower tower;
+    private Tower_Manager towerManager;
+    private Tower_Prefab_List towerPrefabs;
+
 
 	// Use this for initialization
 	void Start () {
-	
+        towerPrefabs = GameObject.Find("Manager_Map").GetComponent<Tower_Prefab_List>();
 	}
 	
 	// Update is called once per frame
@@ -23,13 +25,16 @@ public class Tile_Manager : MonoBehaviour {
 
     void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0) && gameObject.GetComponent<Tile_Info>().transversable)
+        if (Input.GetMouseButtonDown(0) && !gameObject.GetComponent<Tile_Info>().transversable && !hasTower())
         {
-            Debug.Log("Node " + gameObject.GetComponent<Tile_Info>().getNode().getIndex() + "'s "+ gameObject.GetComponent<Tile_Info>().getTileMapCoords() + " neighbors:");
-            foreach (Node node in gameObject.GetComponent<Tile_Info>().getNode().getNeighboringNodes())
-            {
-                Debug.Log("   -| " + node.getIndex() + " | " + node.getMapCoordinates());
-            }
+            //DEBUG: PLACES AN ATTACK TOWER
+            lowerTile();
+            GameObject tower = (GameObject) Instantiate(towerPrefabs.prefab_AttackTower, transform.position, transform.localRotation);
+            towerManager = tower.GetComponent<Tower_Manager>();
+            tower.transform.parent = transform;
+            tower.transform.localPosition = new Vector3(0f, tower.transform.lossyScale.y, 0f);
+            towerManager.init(Tower_Manager.Tower_Class.ATTACK, 1f, 1f);
+            liftTile();
         }
     }
 
@@ -49,20 +54,20 @@ public class Tile_Manager : MonoBehaviour {
         transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
     }
 
-    public void setTower(Tower tower)
+    public void setTowerManager(Tower_Manager manager)
     {
-        this.tower = tower;
+        this.towerManager = manager;
 
     }
 
-    public Tower getTower()
+    public Tower_Manager getTower()
     {
-        return this.tower;
+        return this.towerManager;
     }
 
     public bool hasTower()
     {
-        if (tower == null) return false;
+        if (towerManager == null) return false;
         else return true;
     }
 }

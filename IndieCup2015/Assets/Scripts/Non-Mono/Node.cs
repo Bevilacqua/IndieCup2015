@@ -81,10 +81,6 @@ namespace Assets.Scripts.Non_Mono
                 usableEdges.Add(e);
                 destination.usableEdges.Add(e);
             }
-            else
-            {
-                Debug.Log("Edge already exists");
-            }
                   
         }
 
