@@ -94,7 +94,6 @@ public class Map_Info : MonoBehaviour {
 
              if (!shiftedRowOne && nodeList[i].getMapCoordinates().y == 0)
              {
-                 Debug.Log("test");
                  isOffset = true;
              }
 
@@ -208,14 +207,12 @@ public class Map_Info : MonoBehaviour {
 
 //        float xDiff = (start.getMapCoordinates().x - goal.getMapCoordinates().x);
 
-        float xDiff = start.getGameObject().transform.position.x - goal.getGameObject().transform.position.x;
-        float yDiff = start.getGameObject().transform.position.z - goal.getGameObject().transform.position.z;
+        float xDiffRaw = start.getGameObject().transform.position.x - goal.getGameObject().transform.position.x;
+        float yDiffRaw = start.getGameObject().transform.position.z - goal.getGameObject().transform.position.z;
+        float dx = Mathf.Abs(xDiffRaw);
+        float dy = Mathf.Abs(yDiffRaw);
 
-
-        if (Mathf.Sign(yDiff) == Mathf.Sign(xDiff))
-            return Mathf.Max(Mathf.Abs(yDiff), Mathf.Abs(xDiff));
-        else
-            return Mathf.Abs(yDiff) + Mathf.Abs(xDiff);
+        return 1f * (dx + dy) + (1.41421356237f - 2f) * Mathf.Min(dx, dy);
     }
 
     /// <summary>

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Non_Mono;
+using System;
 
 public class Map_Manager : MonoBehaviour {
     public int width = 10;
@@ -16,29 +17,34 @@ public class Map_Manager : MonoBehaviour {
 
     public GameObject enemy;
     private GameObject map;
+
 	// Use this for initialization
 	void Start () {
         creator = gameObject.GetComponent<Map_Creator>();
         map = creator.createMap(height, width);
 
         map_info = map.GetComponent<Map_Info>();
-//        goalLocation.Set((int)width / 2, (int)height / 2);
+        //        goalLocation.Set((int)width / 2, (int)height / 2);
         path = map_info.init(spawnLocation, goalLocation);
 
-        foreach(Node node in path)
+        foreach (Node node in path)
         {
             //DEBUG:
             node.getGameObject().GetComponent<Tile_Manager>().liftTile();
             node.getGameObject().GetComponent<MeshRenderer>().material.color = Color.white;
         }
-
     }
 	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Space))
             spawnEnemy();
+        if (Input.GetKeyDown(KeyCode.Backspace))
+            createMap();
 	}
+
+    public void createMap()
+    {   }
 
     public void spawnEnemy()
     {
