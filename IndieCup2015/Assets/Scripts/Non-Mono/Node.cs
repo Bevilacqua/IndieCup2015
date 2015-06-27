@@ -18,6 +18,8 @@ namespace Assets.Scripts.Non_Mono
         //Position extracted from current node's game object
         private Vector3 position;
 
+        private int index = 0;
+
         private float gScore = -1f;
         private float fScore = -1f;
 
@@ -47,8 +49,7 @@ namespace Assets.Scripts.Non_Mono
                 if (given != null)
                     neighbors.Add(given);
             }
-
-            //TODO: Check for duplicate nodes
+        
             return neighbors;
         }
 
@@ -74,15 +75,24 @@ namespace Assets.Scripts.Non_Mono
 
         public void addEdge(Node destination)
         {
-            usableEdges.Add(new Edge(this, destination));
-            destination.usableEdges.Add(new Edge(destination, this));       
+            if (!doesEdgeExist(destination) && !destination.doesEdgeExist(this))
+            {
+                Edge e = new Edge(this, destination);
+                usableEdges.Add(e);
+                destination.usableEdges.Add(e);
+            }
+            else
+            {
+                Debug.Log("Edge already exists");
+            }
+                  
         }
 
         public bool doesEdgeExist(Node destination)
         {
             foreach(Edge edge in usableEdges)
             {
-                if (edge.getNodes()[0].Equals(destination) || edge.getNodes()[1].Equals(destination))
+                if (edge.getNodes()[0].Equals(destination) || edge.getNodes()[1].Equals(destination) || edge.getNodes()[0].getIndex() == destination.getIndex() || edge.getNodes()[1].getIndex() == destination.getIndex())
                     return true;
             }
 
@@ -107,6 +117,16 @@ namespace Assets.Scripts.Non_Mono
         public void setFScore(float fScore)
         {
             this.fScore = fScore;
+        }
+
+        public void setIndex(int index)
+        {
+            this.index = index;
+        }
+
+        public int getIndex()
+        {
+            return this.index;
         }
     }
 }

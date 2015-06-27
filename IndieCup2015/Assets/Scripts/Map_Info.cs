@@ -7,6 +7,8 @@ public class Map_Info : MonoBehaviour {
     public float scale = 2.5f;
 
     private GameObject[,] tileMap;
+
+    private bool shiftedRowOne = false;
     
     private Graph mapGraph;
     private List<Node> objectivePath = new List<Node>();
@@ -14,15 +16,11 @@ public class Map_Info : MonoBehaviour {
     private int tileMapWidth, tileMapHeight;
     private Node startNode, endNode;
 
-    void Start()
-    {
-    }
-
     public List<Node> init(Vector2 startNode, Vector2 endNode)
     {
         populateGraph();
         crawlPaths(mapGraph.getNodeList());
-        mapGraph.printGraph();
+//        mapGraph.printGraph();
         this.startNode = tileMap[(int)startNode.x, (int)startNode.y].GetComponent<Tile_Info>().getNode();
         this.endNode = tileMap[(int)endNode.x, (int)endNode.y].GetComponent<Tile_Info>().getNode();
 
@@ -56,7 +54,7 @@ public class Map_Info : MonoBehaviour {
     {
         mapGraph = new Graph();
         Tile_Info currentTileInfo = null;
-
+       
         foreach(GameObject currentGameObject in tileMap) {
             currentTileInfo = currentGameObject.GetComponent<Tile_Info>();    
 
@@ -65,6 +63,13 @@ public class Map_Info : MonoBehaviour {
                 mapGraph.addNode(currentTileInfo.getNode());
             }
         }
+
+        int i = 0;
+        foreach(Node node in mapGraph.getNodeList())
+        {
+            node.setIndex(i);
+            i++;
+        }
     }
 
     /// <summary>
@@ -72,35 +77,56 @@ public class Map_Info : MonoBehaviour {
     /// </summary>
     public void crawlPaths(List<Node> nodeList)
     {
-        for(int i = 0; i < nodeList.Count; i++)
+         for(int i = 0; i < nodeList.Count; i++)
         {
             List<GameObject> possibleNeighbors = new List<GameObject>();
             Vector2 nodeTileLocation = new Vector2(nodeList[i].getGameObject().GetComponent<Tile_Info>().getTileMapCoords().x, nodeList[i].getGameObject().GetComponent<Tile_Info>().getTileMapCoords().y);
+            bool isOffset = false;
 
-            //Possible Neighbors
-            if(nodeTileLocation.x > 0) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x - 1, (int)nodeTileLocation.y]);
-            if(nodeTileLocation.x > 0 && nodeTileLocation.y < tileMapHeight - 1) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x - 1, (int)nodeTileLocation.y + 1]);
-            if(nodeTileLocation.y < tileMapHeight - 1) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x , (int)nodeTileLocation.y + 1]);
-            if(nodeTileLocation.x < tileMapWidth - 1) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x + 1, (int)nodeTileLocation.y]);
-            if(nodeTileLocation.x < tileMapWidth - 1 && nodeTileLocation.y > 0) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x + 1, (int)nodeTileLocation.y - 1]);
-            if(nodeTileLocation.y > 0)possibleNeighbors.Add(tileMap[(int) nodeTileLocation.x, (int) nodeTileLocation.y - 1]);
+             if(shiftedRowOne && nodeList[i].getMapCoordinates().y % 2 != 0)
+             {
+                 isOffset = true;
+             }
+             else if(!shiftedRowOne && nodeList[i].getMapCoordinates().y % 2 == 0)
+             {
+                 isOffset = true;
+             }
 
-            
-//            possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x - 1, (int)nodeTileLocation.y]);
-                                            
-            //TODO: finish adding neighbors
+             if (!shiftedRowOne && nodeList[i].getMapCoordinates().y == 0)
+             {
+                 Debug.Log("test");
+                 isOffset = true;
+             }
 
-            foreach(GameObject gameObject in possibleNeighbors)
+             //Possible Neighbors
+            if(isOffset)
             {
-                if(gameObject.GetComponent<Tile_Info>().transversable)
+                if (nodeTileLocation.x > 0) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x - 1, (int)nodeTileLocation.y]);
+                if (nodeTileLocation.y < tileMapHeight - 1) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x, (int)nodeTileLocation.y + 1]);
+                if (nodeTileLocation.x < tileMapWidth - 1 && nodeTileLocation.y < tileMapHeight - 1) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x + 1, (int)nodeTileLocation.y + 1]);
+                if (nodeTileLocation.x < tileMapWidth - 1) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x + 1, (int)nodeTileLocation.y]);
+                if (nodeTileLocation.x < tileMapWidth - 1 && nodeTileLocation.y > 0) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x + 1, (int)nodeTileLocation.y - 1]);
+                if (nodeTileLocation.y > 0) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x, (int)nodeTileLocation.y - 1]);  
+            }
+            else
+            {
+                if (nodeTileLocation.x > 0) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x - 1, (int)nodeTileLocation.y]);
+                if (nodeTileLocation.x > 0 && nodeTileLocation.y < tileMapHeight - 1) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x - 1, (int)nodeTileLocation.y + 1]);
+                if (nodeTileLocation.y < tileMapHeight - 1) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x, (int)nodeTileLocation.y + 1]);
+                if (nodeTileLocation.x < tileMapWidth - 1) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x + 1, (int)nodeTileLocation.y]);
+                if (nodeTileLocation.y > 0) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x, (int)nodeTileLocation.y - 1]);
+                if (nodeTileLocation.x > 0 && nodeTileLocation.y > 0) possibleNeighbors.Add(tileMap[(int)nodeTileLocation.x, (int)nodeTileLocation.y - 1]);  
+            }
+                
+            
+            foreach(GameObject neighbor in possibleNeighbors)
+            {
+                if (neighbor.GetComponent<Tile_Info>().transversable)
                 {
-                    //Draw edge if it does not exist
-                    if(!nodeList[i].doesEdgeExist(gameObject.GetComponent<Tile_Info>().getNode()))
-                        nodeList[i].addEdge(gameObject.GetComponent<Tile_Info>().getNode());
+                    nodeList[i].addEdge(neighbor.GetComponent<Tile_Info>().getNode());
                 }
             }
         }
-        
     }
 
     public List<Node> createObjectivePath()
@@ -116,16 +142,15 @@ public class Map_Info : MonoBehaviour {
         startNode.setGScore(0);
         startNode.setFScore(startNode.getGScore() + calculateHeuristic(startNode, endNode));
 
-        
         while(openSet.Count != 0)
         {
             int index = lowestFScoreInList(openSet);
             Node current = openSet[index];
 
-            if(current.getMapCoordinates() == endNode.getMapCoordinates())
+            if(current.getIndex() == endNode.getIndex())
             {
-                finalPath = came_from;
-                return finalPath;
+                came_from.Add(endNode);
+                return came_from;
             }
 
             openSet.RemoveAt(index);
@@ -152,19 +177,23 @@ public class Map_Info : MonoBehaviour {
 
                 foreach(Node n in openSet)
                 {
-                    if(n.getMapCoordinates() == neighbor.getMapCoordinates())
+                    if(n.getIndex() == neighbor.getIndex())
                     {
                         foundInOpenSet = true;
                         break;
                     }
                 }
-                    
+
                 if(!foundInOpenSet) //Bug possibility
                 {
-                    came_from.Add(current);
-                    neighbor.setGScore(newGScore);
-                    neighbor.setFScore(newGScore + calculateHeuristic(neighbor, endNode));
-                    openSet.Add(neighbor);
+                    if(neighbor.getGScore() == -1f)
+                    {
+                        came_from.Add(current);
+                        neighbor.setGScore(newGScore);
+                        neighbor.setFScore(newGScore + calculateHeuristic(neighbor, endNode));
+                        openSet.Add(neighbor);
+                    }
+                   
                 }
 
             }
@@ -175,11 +204,13 @@ public class Map_Info : MonoBehaviour {
 
     private float calculateHeuristic(Node start, Node goal)
     {
-        float yDiff = (start.getMapCoordinates().y - goal.getMapCoordinates().y);
-        yDiff = Mathf.Abs(yDiff);
+//        float yDiff = (start.getMapCoordinates().y - goal.getMapCoordinates().y);
 
-        float xDiff = (start.getMapCoordinates().x - goal.getMapCoordinates().x);
-        xDiff = Mathf.Abs(xDiff);
+//        float xDiff = (start.getMapCoordinates().x - goal.getMapCoordinates().x);
+
+        float xDiff = start.getGameObject().transform.position.x - goal.getGameObject().transform.position.x;
+        float yDiff = start.getGameObject().transform.position.z - goal.getGameObject().transform.position.z;
+
 
         if (Mathf.Sign(yDiff) == Mathf.Sign(xDiff))
             return Mathf.Max(Mathf.Abs(yDiff), Mathf.Abs(xDiff));
@@ -214,5 +245,15 @@ public class Map_Info : MonoBehaviour {
     {
         this.startNode = start;
         this.endNode = end;
+    }
+
+    public void setFirstRowShifted(bool shifted)
+    {
+        this.shiftedRowOne = shifted;
+    }
+
+    public bool getShiftedRowOne()
+    {
+        return this.shiftedRowOne;
     }
 }

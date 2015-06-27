@@ -17,6 +17,11 @@ public class Enemy_Manager : MonoBehaviour {
 
     public void init(List<Node> nodeList, Transform mapParent)
     {
+        Debug.Log("Enemy taking path ("+ nodeList.Count + ") :");
+        foreach(Node node in nodeList)
+        {
+            Debug.Log(node.getMapCoordinates());
+        }
         this.path = nodeList;
         this.pathFindingProgress = 0;
         transform.parent = mapParent;

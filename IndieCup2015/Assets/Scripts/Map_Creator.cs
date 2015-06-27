@@ -44,20 +44,19 @@ public class Map_Creator : MonoBehaviour {
 
                 GameObject currentTile = null;
 
-                if (Random.Range(0, 100) % 2 == 0 || x == 7 || x == 0 || Random.Range(0, 100) % 2 == 0) //TODO: better randomization
+                if (Random.Range(0, 200) % 3 == 0 && y != 0) //TODO: better randomization
                 {
-                    currentTile = (GameObject)Instantiate(prefab_pathTile, location, prefab_pathTile.transform.localRotation);
-                    currentTile.GetComponent<Tile_Info>().setTransversable(true);
+                    currentTile = (GameObject)Instantiate(prefab_defaultTile, location, prefab_defaultTile.transform.localRotation);
                 }
                 else
                 {
-                    currentTile = (GameObject)Instantiate(prefab_defaultTile, location, prefab_defaultTile.transform.localRotation);
+                    currentTile = (GameObject)Instantiate(prefab_pathTile, location, prefab_pathTile.transform.localRotation);
+                    currentTile.GetComponent<Tile_Info>().setTransversable(true);
                 }
 
                 currentTile.transform.parent = mapParent.transform;
 
                 currentTile.GetComponent<Tile_Info>().assignInfo(new Vector2(x, y));
-//                Debug.Log("Tile (" + x + " , " + y + ") @ - [" + currentTile.transform.position.x + " , " + currentTile.transform.position.z + " ]");
                 map[x,y] = currentTile;
             }
 
@@ -67,6 +66,9 @@ public class Map_Creator : MonoBehaviour {
             mapParent.GetComponent<Map_Info>().setDimensions(cols, rows);
 
             mapParent.GetComponent<Map_Info>().updateScale();
+
+            if (rows % 2 == 0)
+                mapParent.GetComponent<Map_Info>().setFirstRowShifted(true);
 
             return mapParent;
     }

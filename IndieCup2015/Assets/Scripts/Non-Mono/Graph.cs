@@ -28,12 +28,10 @@ namespace Assets.Scripts.Non_Mono
 
         public void printGraph()
         {
-            int index = 0;
             if (nodeList.Count == 0) return;
             foreach(Node node in nodeList) 
             {
-                Debug.Log("Node # " + index + " | @ X: " + node.getMapCoordinates().x + "(" + node.getGameObject().transform.localPosition.x + ") , Y: " + node.getMapCoordinates().y + "(" + node.getGameObject().transform.localPosition.z + ") | The node has " + node.getNeighborCount() + " neighbor[s]");
-                index++;   
+                Debug.Log("Node # " + node.getIndex() + " | @ X: " + node.getMapCoordinates().x + "(" + node.getGameObject().transform.localPosition.x + ") , Y: " + node.getMapCoordinates().y + "(" + node.getGameObject().transform.localPosition.z + ") | The node has " + node.getNeighborCount() + " neighbor[s]");
             }
         }
     }
