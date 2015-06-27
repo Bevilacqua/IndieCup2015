@@ -11,6 +11,8 @@ public class Tower_Manager : MonoBehaviour {
     };
 
     private bool initialized = false;
+    private float coolDownElapsedTime = 0f;
+    private const float globalTimeBetweenAttack = 2f;
 
     private Tower_Class towerClass;
     private float speedOfAttack;
@@ -22,6 +24,53 @@ public class Tower_Manager : MonoBehaviour {
         this.speedOfAttack = speedOfAttack;
         this.damage = damage;
         this.initialized = true;
+    }
+
+    void Update()
+    {
+        if (!initialized) return;
+
+        if(globalTimeBetweenAttack < (.01f * speedOfAttack))
+        {
+            Debug.Log("Shot fired - default");
+            shootAtEnemyWithMostProgress();
+            return;
+        }
+
+        if(coolDownElapsedTime >= (globalTimeBetweenAttack - (.01f * speedOfAttack)))
+        {
+            Debug.Log("Shot fired");
+            shootAtEnemyWithMostProgress();
+            coolDownElapsedTime = 0f;
+        }
+        else
+        {
+            coolDownElapsedTime += Time.deltaTime;
+        }        
+    }
+
+    private void shootAtEnemyWithMostProgress()
+    {
+        GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject farthest = null;
+        if (listOfEnemies.Length == 0)
+            return;
+        else
+            farthest = listOfEnemies[0];
+
+        foreach(GameObject gobj in listOfEnemies)
+        {
+            Enemy_Manager enemy = gobj.GetComponent<Enemy_Manager>();
+
+            if (enemy.getProgress() > farthest.GetComponent<Enemy_Manager>().getProgress())
+                farthest = gobj;
+        }
+
+        //Find position of farthest
+        Vector3 posOfFarthest = farthest.transform.position;
+        //Add force towards position
+        GameObject bullet = (GameObject)Instantiate(GameObject.Find("Manager_Map").GetComponent<Tower_Prefab_List>().prefab_AttackProjectile, transform.position, transform.localRotation);
+        bullet.GetComponent<Rigidbody>().AddForce((posOfFarthest - transform.position) * speedOfAttack * 1000f * Time.smoothDeltaTime);
     }
 
     public void upgrade()

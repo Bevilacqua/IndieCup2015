@@ -73,4 +73,9 @@ public class Enemy_Manager : MonoBehaviour {
             if (health <= 0) Destroy(gameObject);
         }
 	}
+
+    public int getProgress()
+    {
+        return this.pathFindingProgress;
+    }
 }
