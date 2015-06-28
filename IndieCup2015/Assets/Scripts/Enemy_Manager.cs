@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Non_Mono;
 
-public class Enemy_Manager : MonoBehaviour {
+public class Enemy_Manager : MonoBehaviour
+{
     private int pathFindingProgress;
     private List<Node> path = new List<Node>();
     private bool initialized = false;
@@ -11,16 +12,17 @@ public class Enemy_Manager : MonoBehaviour {
     private float speed = 1f;
     private float health = 100f;
 
-    void Start () {
-	
-	}
+    void Start()
+    {
+
+    }
 
     public void init(List<Node> nodeList, Transform mapParent)
     {
         this.path = nodeList;
         this.pathFindingProgress = 0;
         transform.parent = mapParent;
-        transform.position = new Vector3(path[pathFindingProgress].getGameObject().transform.position.x, path[pathFindingProgress].getGameObject().transform.position.y + transform.lossyScale.y, path[pathFindingProgress].getGameObject().transform.position.z);
+        transform.localPosition = new Vector3(path[pathFindingProgress].getGameObject().transform.localPosition.x, path[pathFindingProgress].getGameObject().transform.localPosition.y + 1f, path[pathFindingProgress].getGameObject().transform.localPosition.z);
         this.initialized = true;
     }
 
@@ -33,17 +35,18 @@ public class Enemy_Manager : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("hit");
         Destroy(collider.gameObject);
         health -= collider.gameObject.GetComponent<Bullet_Info>().getDamage();
     }
 
-	void Update () {
-	    if(initialized)
-        { 
+
+    void Update()
+    {
+        if (initialized)
+        {
             Vector3 diff = new Vector3(path[pathFindingProgress].getGameObject().transform.position.x - transform.position.x, transform.position.y, path[pathFindingProgress].getGameObject().transform.position.z - transform.position.z);
             Vector3 alterations = new Vector3();
-            if(diff.x < 0)
+            if (diff.x < 0)
             {
                 if (Mathf.Abs(diff.x) < (speed * Time.deltaTime))
                     alterations.x = diff.x;
@@ -58,7 +61,7 @@ public class Enemy_Manager : MonoBehaviour {
                     alterations.x = speed * Time.deltaTime;
             }
 
-            if(diff.z < 0)
+            if (diff.z < 0)
             {
                 if (Mathf.Abs(diff.z) < (speed * Time.deltaTime))
                     alterations.z = diff.z;
@@ -73,11 +76,9 @@ public class Enemy_Manager : MonoBehaviour {
                     alterations.z = speed * Time.deltaTime;
             }
 
-            Debug.Log(pathFindingProgress + " | " + path.Count + " -| " + alterations + " | " + diff);
-
             transform.position += alterations;
 
-            if(diff.x == 0f && diff.z == 0f)
+            if (diff.x == 0f && diff.z == 0f)
             {
                 pathFindingProgress++;
 
@@ -87,7 +88,7 @@ public class Enemy_Manager : MonoBehaviour {
 
             if (health <= 0) Destroy(gameObject);
         }
-	}
+    }
 
     public int getProgress()
     {

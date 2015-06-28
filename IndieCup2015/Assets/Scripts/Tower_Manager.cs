@@ -54,9 +54,6 @@ public class Tower_Manager : MonoBehaviour
     {
         GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject farthest = null;
-
-        Debug.Log(listOfEnemies.Length);
-
         if (listOfEnemies.Length == 0)
             return;
         else
@@ -73,7 +70,7 @@ public class Tower_Manager : MonoBehaviour
         //Find position of farthest
         Vector3 posOfFarthest = farthest.transform.position;
         //Add force towards position
-        GameObject bullet = (GameObject)Instantiate(GameObject.Find("Manager_Map").GetComponent<Tower_Prefab_List>().prefab_AttackProjectile, transform.position, transform.localRotation);
+        GameObject bullet = (GameObject)Instantiate(GameObject.Find("Manager_Map").GetComponent<Tower_Prefab_List>().prefab_AttackProjectile, new Vector3(transform.position.x, 2.5f, transform.position.z), transform.localRotation);
         bullet.GetComponent<Bullet_Info>().init(this.towerClass, this.damage);
         transform.LookAt(posOfFarthest);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * speedOfAttack * Time.smoothDeltaTime);
