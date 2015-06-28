@@ -22,19 +22,7 @@ public class Map_Manager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        creator = gameObject.GetComponent<Map_Creator>();
-        map = creator.createMap(height, width);
-
-        map_info = map.GetComponent<Map_Info>();
-        //        goalLocation.Set((int)width / 2, (int)height / 2);
-        path = map_info.init(spawnLocation, goalLocation);
-
-        foreach (Node node in path)
-        {
-            //DEBUG:
-            node.getGameObject().GetComponent<Tile_Manager>().liftTile();
-            node.getGameObject().GetComponent<MeshRenderer>().material.color = Color.white;
-        }
+        createMap();
     }
 
     // Update is called once per frame
@@ -43,11 +31,43 @@ public class Map_Manager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             spawnEnemy();
         if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            destroyMap();
             createMap();
+        }
+    }
+
+    public void destroyMap()
+    {
+        Destroy(GameObject.FindGameObjectWithTag("Map"));
     }
 
     public void createMap()
-    { }
+    {
+        try
+        {
+            creator = gameObject.GetComponent<Map_Creator>();
+            map = creator.createMap(height, width);
+
+            map_info = map.GetComponent<Map_Info>();
+            //        goalLocation.Set((int)width / 2, (int)height / 2);
+            path = map_info.init(spawnLocation, goalLocation);
+
+            foreach (Node node in path)
+            {
+                //DEBUG:
+                node.getGameObject().GetComponent<Tile_Manager>().liftTile();
+                node.getGameObject().GetComponent<MeshRenderer>().material.color = Color.white;
+            }
+        }
+        catch(Exception e)
+        {
+            Debug.Log("Map created incorrectly: " + e.Message);
+            destroyMap();
+            Debug.Log("Map destroyed - press backspace to regenerate");
+        }
+        
+    }
 
     public void spawnEnemy()
     {

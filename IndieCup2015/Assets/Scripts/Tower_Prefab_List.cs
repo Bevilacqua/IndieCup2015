@@ -7,6 +7,7 @@ public class Tower_Prefab_List : MonoBehaviour {
     public GameObject prefab_MoneyTower;
 
     public GameObject prefab_AttackProjectile;
+    public GameObject prefab_SlowProjectile;
 
 	// Use this for initialization
 	void Start () {

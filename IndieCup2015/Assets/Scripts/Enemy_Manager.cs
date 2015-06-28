@@ -36,7 +36,10 @@ public class Enemy_Manager : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         Destroy(collider.gameObject);
-        health -= collider.gameObject.GetComponent<Bullet_Info>().getDamage();
+        if (collider.gameObject.GetComponent<Bullet_Info>().getBulletClass() == Tower_Manager.Tower_Class.ATTACK)
+            health -= collider.gameObject.GetComponent<Bullet_Info>().getDamage();
+        else if (collider.gameObject.GetComponent<Bullet_Info>().getBulletClass() == Tower_Manager.Tower_Class.SLOW)
+            speed -= collider.gameObject.GetComponent<Bullet_Info>().getDamage() / 100f;
     }
 
 

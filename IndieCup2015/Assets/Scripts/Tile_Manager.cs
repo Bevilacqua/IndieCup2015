@@ -41,8 +41,27 @@ public class Tile_Manager : MonoBehaviour {
                 tower.transform.localPosition = new Vector3(0f, 1f, 0f);
                 towerManager.init(Tower_Manager.Tower_Class.ATTACK, 10f, 1f);
                 liftTile();
-            } 
+            }
         }
+        if (Input.GetMouseButtonDown(1) && !gameObject.GetComponent<Tile_Info>().transversable)
+        {
+            if (hasTower())
+            {
+                getTower().upgrade();
+            }
+            else
+            {
+                //DEBUG: PLACES AN ATTACK TOWER
+                lowerTile();
+                GameObject tower = (GameObject)Instantiate(towerPrefabs.prefab_SlowTower, transform.position, transform.localRotation);
+                towerManager = tower.GetComponent<Tower_Manager>();
+                tower.transform.parent = transform;
+                tower.transform.localPosition = new Vector3(0f, 1f, 0f);
+                towerManager.init(Tower_Manager.Tower_Class.SLOW, 10f, 1f);
+                liftTile();
+            }
+        }
+
     }
 
     void OnMouseExit()

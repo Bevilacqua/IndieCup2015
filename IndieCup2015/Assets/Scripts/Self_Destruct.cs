@@ -15,7 +15,6 @@ public class Self_Destruct : MonoBehaviour {
 
     void OnBecameInvisible()
     {
-        Debug.Log(gameObject.GetInstanceID() + " destroyed.");
         Destroy(gameObject);
     }
 }
