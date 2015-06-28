@@ -24,6 +24,13 @@ public class Enemy_Manager : MonoBehaviour {
         this.initialized = true;
     }
 
+    public void init(List<Node> nodeList, Transform mapParent, float speed, float health)
+    {
+        this.speed = speed;
+        this.health = health;
+        init(nodeList, mapParent);
+    }
+
     void OnTriggerEnter(Collider collider)
     {
         Destroy(collider.gameObject);

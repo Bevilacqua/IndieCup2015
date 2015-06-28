@@ -25,16 +25,23 @@ public class Tile_Manager : MonoBehaviour {
 
     void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0) && !gameObject.GetComponent<Tile_Info>().transversable && !hasTower())
+        if (Input.GetMouseButtonDown(0) && !gameObject.GetComponent<Tile_Info>().transversable)
         {
-            //DEBUG: PLACES AN ATTACK TOWER
-            lowerTile();
-            GameObject tower = (GameObject) Instantiate(towerPrefabs.prefab_AttackTower, transform.position, transform.localRotation);
-            towerManager = tower.GetComponent<Tower_Manager>();
-            tower.transform.parent = transform;
-            tower.transform.localPosition = new Vector3(0f, tower.transform.lossyScale.y, 0f);
-            towerManager.init(Tower_Manager.Tower_Class.ATTACK, 1f, 50f);
-            liftTile();
+            if (hasTower()) 
+            {
+                getTower().upgrade();
+            }
+            else
+            {
+                //DEBUG: PLACES AN ATTACK TOWER
+                lowerTile();
+                GameObject tower = (GameObject)Instantiate(towerPrefabs.prefab_AttackTower, transform.position, transform.localRotation);
+                towerManager = tower.GetComponent<Tower_Manager>();
+                tower.transform.parent = transform;
+                tower.transform.localPosition = new Vector3(0f, tower.transform.lossyScale.y, 0f);
+                towerManager.init(Tower_Manager.Tower_Class.ATTACK, 10f, 1f);
+                liftTile();
+            } 
         }
     }
 

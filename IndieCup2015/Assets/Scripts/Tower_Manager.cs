@@ -30,7 +30,7 @@ public class Tower_Manager : MonoBehaviour {
     {
         if (!initialized) return;
 
-        if(globalTimeBetweenAttack < (.01f * speedOfAttack))
+        if(globalTimeBetweenAttack < (.0001f * speedOfAttack))
         {
             Debug.Log("Shot fired - default");
             shootAtEnemyWithMostProgress();
@@ -71,13 +71,14 @@ public class Tower_Manager : MonoBehaviour {
         //Add force towards position
         GameObject bullet = (GameObject)Instantiate(GameObject.Find("Manager_Map").GetComponent<Tower_Prefab_List>().prefab_AttackProjectile, transform.position, transform.localRotation);
         bullet.GetComponent<Bullet_Info>().init(this.towerClass, this.damage);
-        bullet.GetComponent<Rigidbody>().AddForce((posOfFarthest - transform.position) * speedOfAttack * 1000f * Time.smoothDeltaTime);
+        transform.LookAt(posOfFarthest);
+        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * speedOfAttack * Time.smoothDeltaTime);
     }
 
     public void upgrade()
     {
-        this.speedOfAttack *= 1.5f;
-        this.damage *= 1.5f;
+        this.speedOfAttack *= 1.05f;
+        this.damage *= 1.05f;
     }
 
     public Tower_Class getTowerClass()
