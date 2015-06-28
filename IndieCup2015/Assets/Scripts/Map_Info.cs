@@ -24,10 +24,6 @@ public class Map_Info : MonoBehaviour {
         this.startNode = tileMap[(int)startNode.x, (int)startNode.y].GetComponent<Tile_Info>().getNode();
         this.endNode = tileMap[(int)endNode.x, (int)endNode.y].GetComponent<Tile_Info>().getNode();
 
-        //DEBUG
-        this.startNode.getGameObject().GetComponent<Tile_Manager>().liftTile();
-        this.endNode.getGameObject().GetComponent<Tile_Manager>().liftTile();
-
         return createObjectivePath();
     }
 

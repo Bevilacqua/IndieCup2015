@@ -20,7 +20,7 @@ public class Enemy_Manager : MonoBehaviour {
         this.path = nodeList;
         this.pathFindingProgress = 0;
         transform.parent = mapParent;
-        transform.localPosition = new Vector3(path[pathFindingProgress].getGameObject().transform.localPosition.x, path[pathFindingProgress].getGameObject().transform.localPosition.y + 1f, path[pathFindingProgress].getGameObject().transform.localPosition.z);
+        transform.position = new Vector3(path[pathFindingProgress].getGameObject().transform.position.x, path[pathFindingProgress].getGameObject().transform.position.y + transform.lossyScale.y, path[pathFindingProgress].getGameObject().transform.position.z);
         this.initialized = true;
     }
 
@@ -33,11 +33,11 @@ public class Enemy_Manager : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
+        Debug.Log("hit");
         Destroy(collider.gameObject);
         health -= collider.gameObject.GetComponent<Bullet_Info>().getDamage();
     }
 
-	
 	void Update () {
 	    if(initialized)
         { 
@@ -72,6 +72,8 @@ public class Enemy_Manager : MonoBehaviour {
                 else
                     alterations.z = speed * Time.deltaTime;
             }
+
+            Debug.Log(pathFindingProgress + " | " + path.Count + " -| " + alterations + " | " + diff);
 
             transform.position += alterations;
 

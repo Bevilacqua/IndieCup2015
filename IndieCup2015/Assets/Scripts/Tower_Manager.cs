@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Tower_Manager : MonoBehaviour {
-    
+public class Tower_Manager : MonoBehaviour
+{
+
     public enum Tower_Class
     {
         ATTACK,
@@ -30,14 +31,14 @@ public class Tower_Manager : MonoBehaviour {
     {
         if (!initialized) return;
 
-        if(globalTimeBetweenAttack < (.0001f * speedOfAttack))
+        if (globalTimeBetweenAttack < (.0001f * speedOfAttack))
         {
             Debug.Log("Shot fired - default");
             shootAtEnemyWithMostProgress();
             return;
         }
 
-        if(coolDownElapsedTime >= (globalTimeBetweenAttack - (.01f * speedOfAttack)))
+        if (coolDownElapsedTime >= (globalTimeBetweenAttack - (.01f * speedOfAttack)))
         {
             Debug.Log("Shot fired");
             shootAtEnemyWithMostProgress();
@@ -46,19 +47,22 @@ public class Tower_Manager : MonoBehaviour {
         else
         {
             coolDownElapsedTime += Time.deltaTime;
-        }        
+        }
     }
 
     private void shootAtEnemyWithMostProgress()
     {
         GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject farthest = null;
+
+        Debug.Log(listOfEnemies.Length);
+
         if (listOfEnemies.Length == 0)
             return;
         else
             farthest = listOfEnemies[0];
 
-        foreach(GameObject gobj in listOfEnemies)
+        foreach (GameObject gobj in listOfEnemies)
         {
             Enemy_Manager enemy = gobj.GetComponent<Enemy_Manager>();
 

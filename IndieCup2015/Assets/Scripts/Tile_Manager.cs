@@ -38,7 +38,7 @@ public class Tile_Manager : MonoBehaviour {
                 GameObject tower = (GameObject)Instantiate(towerPrefabs.prefab_AttackTower, transform.position, transform.localRotation);
                 towerManager = tower.GetComponent<Tower_Manager>();
                 tower.transform.parent = transform;
-                tower.transform.localPosition = new Vector3(0f, tower.transform.lossyScale.y, 0f);
+                tower.transform.localPosition = new Vector3(0f, (tower.transform.lossyScale.y / 2), 0f);
                 towerManager.init(Tower_Manager.Tower_Class.ATTACK, 10f, 1f);
                 liftTile();
             } 
@@ -64,7 +64,6 @@ public class Tile_Manager : MonoBehaviour {
     public void setTowerManager(Tower_Manager manager)
     {
         this.towerManager = manager;
-
     }
 
     public Tower_Manager getTower()
