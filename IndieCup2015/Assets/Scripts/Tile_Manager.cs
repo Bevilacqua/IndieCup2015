@@ -33,7 +33,7 @@ public class Tile_Manager : MonoBehaviour {
             towerManager = tower.GetComponent<Tower_Manager>();
             tower.transform.parent = transform;
             tower.transform.localPosition = new Vector3(0f, tower.transform.lossyScale.y, 0f);
-            towerManager.init(Tower_Manager.Tower_Class.ATTACK, 1f, 1f);
+            towerManager.init(Tower_Manager.Tower_Class.ATTACK, 1f, 50f);
             liftTile();
         }
     }

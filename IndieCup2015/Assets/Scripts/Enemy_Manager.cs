@@ -24,6 +24,12 @@ public class Enemy_Manager : MonoBehaviour {
         this.initialized = true;
     }
 
+    void OnTriggerEnter(Collider collider)
+    {
+        Destroy(collider.gameObject);
+        health -= collider.gameObject.GetComponent<Bullet_Info>().getDamage();
+    }
+
 	
 	void Update () {
 	    if(initialized)

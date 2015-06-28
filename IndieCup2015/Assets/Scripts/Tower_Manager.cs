@@ -70,6 +70,7 @@ public class Tower_Manager : MonoBehaviour {
         Vector3 posOfFarthest = farthest.transform.position;
         //Add force towards position
         GameObject bullet = (GameObject)Instantiate(GameObject.Find("Manager_Map").GetComponent<Tower_Prefab_List>().prefab_AttackProjectile, transform.position, transform.localRotation);
+        bullet.GetComponent<Bullet_Info>().init(this.towerClass, this.damage);
         bullet.GetComponent<Rigidbody>().AddForce((posOfFarthest - transform.position) * speedOfAttack * 1000f * Time.smoothDeltaTime);
     }
 
