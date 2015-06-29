@@ -88,11 +88,18 @@ public class Enemy_Manager : MonoBehaviour
             {
                 pathFindingProgress++;
 
-                //DEBUG
-                if (pathFindingProgress > path.Count - 1) Destroy(gameObject);
+                if (pathFindingProgress > path.Count - 1)
+                {
+                    GameObject.Find("Manager_Game").GetComponent<Game_Manager>().enemyPass(health);
+                    Destroy(gameObject);
+                }
             }
 
-            if (health <= 0) Destroy(gameObject);
+            if (health <= 0)
+            {
+                GameObject.Find("Manager_Game").GetComponent<Game_Manager>().enemyKilled();
+                Destroy(gameObject);
+            }
         }
     }
 
