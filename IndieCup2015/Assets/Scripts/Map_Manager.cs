@@ -30,11 +30,6 @@ public class Map_Manager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
             spawnEnemy();
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            destroyMap();
-            createMap();
-        }
     }
 
     public void destroyMap()

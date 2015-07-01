@@ -13,7 +13,7 @@ public class ResetButton : MonoBehaviour {
 	
 	}
 
-    void OnClick()
+    public void Reset()
     {
         GameObject.Find("Manager_Game").GetComponent<Game_Manager>().reset(Game_Manager.MAX_HEALTH, Game_Manager.MAX_DIFFICULTY);
     }
