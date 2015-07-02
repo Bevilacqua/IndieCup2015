@@ -34,14 +34,14 @@ public class Tower_Manager : MonoBehaviour
         if (globalTimeBetweenAttack < (.0001f * speedOfAttack))
         {
             Debug.Log("Shot fired - default");
-            shootAtEnemyWithMostProgress();
+            shootAtClosestEnemy();
             return;
         }
 
         if (coolDownElapsedTime >= (globalTimeBetweenAttack - (.01f * speedOfAttack)))
         {
             Debug.Log("Shot fired");
-            shootAtEnemyWithMostProgress();
+            shootAtClosestEnemy();
             coolDownElapsedTime = 0f;
         }
         else
@@ -79,6 +79,45 @@ public class Tower_Manager : MonoBehaviour
         GameObject bullet = (GameObject)Instantiate(pre_bullet, new Vector3(transform.position.x, 2.5f, transform.position.z), transform.localRotation);
         bullet.GetComponent<Bullet_Info>().init(this.towerClass, this.damage);
         transform.LookAt(posOfFarthest);
+        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * speedOfAttack * Time.smoothDeltaTime);
+    }
+
+    private void shootAtClosestEnemy()
+    {
+        GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject closest = null;
+        float closestValue = 0;
+
+        if (listOfEnemies.Length == 0)
+            return;
+        else
+        {
+            closestValue = Vector3.Distance(transform.position, listOfEnemies[0].transform.position);
+            closest = listOfEnemies[0];
+        }
+
+        foreach (GameObject gobj in listOfEnemies)
+        {
+            float distance = Vector3.Distance(transform.position, gobj.transform.position);
+            if (distance < closestValue)
+            {
+                closestValue = distance;
+                closest = gobj;
+            }
+        }
+
+        //Find position of farthest
+        Vector3 posOfClosest = closest.transform.position;
+        //Add force towards position
+        GameObject pre_bullet = null;
+        if (towerClass == Tower_Class.SLOW)
+            pre_bullet = GameObject.Find("Manager_Map").GetComponent<Tower_Prefab_List>().prefab_SlowProjectile;
+        else
+            pre_bullet = GameObject.Find("Manager_Map").GetComponent<Tower_Prefab_List>().prefab_AttackProjectile;
+
+        GameObject bullet = (GameObject)Instantiate(pre_bullet, new Vector3(transform.position.x, 2.5f, transform.position.z), transform.localRotation);
+        bullet.GetComponent<Bullet_Info>().init(this.towerClass, this.damage);
+        transform.LookAt(posOfClosest);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * speedOfAttack * Time.smoothDeltaTime);
     }
 
