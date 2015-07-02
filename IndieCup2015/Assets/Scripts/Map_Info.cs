@@ -127,7 +127,6 @@ public class Map_Info : MonoBehaviour {
     public List<Node> createObjectivePath()
     {
         List<Node> finalPath = new List<Node>();
-        List<Node> came_from = new List<Node>();
 
         List<Node> closedSet = new List<Node>();
         List<Node> openSet = new List<Node>();
@@ -144,8 +143,8 @@ public class Map_Info : MonoBehaviour {
 
             if(current.getIndex() == endNode.getIndex())
             {
-                came_from.Add(endNode);
-                return came_from;
+                finalPath = retracePath(endNode);
+                return finalPath;
             }
 
             openSet.RemoveAt(index);
@@ -183,7 +182,7 @@ public class Map_Info : MonoBehaviour {
                 {
                     if(neighbor.getGScore() == -1f)
                     {
-                        came_from.Add(current);
+                        neighbor.setCameFromNode(current);
                         neighbor.setGScore(newGScore);
                         neighbor.setFScore(newGScore + calculateHeuristic(neighbor, endNode));
                         openSet.Add(neighbor);
@@ -195,6 +194,26 @@ public class Map_Info : MonoBehaviour {
         }
         Debug.Log("Path failed to generate");
         return null;
+    }
+
+    private List<Node> retracePath(Node finalNode)
+    {
+        List<Node> finalPath = new List<Node>();
+
+        finalPath.Add(finalNode);
+
+        Node currentNode = finalNode;
+
+        while(currentNode.getCameFromNode() != null)
+        {
+            finalPath.Add(currentNode);
+            currentNode = currentNode.getCameFromNode();
+        }
+
+        finalPath.Add(currentNode);
+
+        finalPath.Reverse();
+        return finalPath;
     }
 
     private float calculateHeuristic(Node start, Node goal)

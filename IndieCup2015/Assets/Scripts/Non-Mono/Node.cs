@@ -22,6 +22,7 @@ namespace Assets.Scripts.Non_Mono
 
         private float gScore = -1f;
         private float fScore = -1f;
+        private Node came_from = null;
 
         /// <summary>
         /// Node constructor
@@ -123,6 +124,16 @@ namespace Assets.Scripts.Non_Mono
         public int getIndex()
         {
             return this.index;
+        }
+
+        public void setCameFromNode(Node node)
+        {
+            this.came_from = node;
+        }
+
+        public Node getCameFromNode()
+        {
+            return this.came_from;
         }
     }
 }
