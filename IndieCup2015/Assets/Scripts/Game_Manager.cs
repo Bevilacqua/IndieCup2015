@@ -16,24 +16,17 @@ public class Game_Manager : MonoBehaviour {
 	void Start () {
         UIManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UI_Manager>();
         mapManager = GameObject.Find("Manager_Map").GetComponent<Map_Manager>();
-        reset(MAX_HEALTH, MAX_DIFFICULTY);
-	}
+        this.health = MAX_HEALTH;
+        this.difficulty = MAX_DIFFICULTY;
+        this.money = 0;
+        UIManager.setHealth(health);
+        UIManager.setMoney(money);
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
-
-    public void reset(int health, float difficulty)
-    {
-        this.health = health;
-        this.difficulty = difficulty;
-        this.money = 0;
-        UIManager.setHealth(health);
-        UIManager.setMoney(money);
-        mapManager.destroyMap();
-        mapManager.createMap();
-    }
 
     public void enemyPass(float enemyHealth)
     {

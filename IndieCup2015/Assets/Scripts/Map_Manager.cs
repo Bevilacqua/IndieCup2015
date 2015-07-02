@@ -22,7 +22,8 @@ public class Map_Manager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        createMap();
+        if (createMap() == false)
+            Application.LoadLevel(0);
     }
 
     // Update is called once per frame
@@ -37,7 +38,7 @@ public class Map_Manager : MonoBehaviour
         Destroy(GameObject.FindGameObjectWithTag("Map"));
     }
 
-    public void createMap()
+    public bool createMap()
     {
         try
         {
@@ -59,8 +60,13 @@ public class Map_Manager : MonoBehaviour
         {
             Debug.Log("Map created incorrectly: " + e.Message);
             destroyMap();
-            Debug.Log("Map destroyed - press backspace to regenerate");
+            return false;
         }
+
+        if (path.Count == 0)
+            return false;
+
+        return true;
         
     }
 
