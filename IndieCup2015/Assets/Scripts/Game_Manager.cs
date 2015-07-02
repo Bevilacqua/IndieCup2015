@@ -40,6 +40,11 @@ public class Game_Manager : MonoBehaviour {
         UIManager.setMoney(money);
     }
 
+    public void addMoneyFromTower(int amount)
+    {
+        money += amount;
+    }
+
     public int getMoney()
     {
         return this.money;

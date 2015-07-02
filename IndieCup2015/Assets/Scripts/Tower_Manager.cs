@@ -52,6 +52,7 @@ public class Tower_Manager : MonoBehaviour
 
     private void shootAtEnemyWithMostProgress()
     {
+        if (towerClass == Tower_Class.MONEY) addMoney((int)damage);
         GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject farthest = null;
         if (listOfEnemies.Length == 0)
@@ -84,6 +85,7 @@ public class Tower_Manager : MonoBehaviour
 
     private void shootAtClosestEnemy()
     {
+        if (towerClass == Tower_Class.MONEY) addMoney((int)damage);
         GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject closest = null;
         float closestValue = 0;
@@ -119,6 +121,11 @@ public class Tower_Manager : MonoBehaviour
         bullet.GetComponent<Bullet_Info>().init(this.towerClass, this.damage);
         transform.LookAt(posOfClosest);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * speedOfAttack * Time.smoothDeltaTime);
+    }
+
+    private void addMoney(int amount)
+    {
+        GameObject.Find("Manager_Game").GetComponent<Game_Manager>().addMoneyFromTower(amount);
     }
 
     public void upgrade()
