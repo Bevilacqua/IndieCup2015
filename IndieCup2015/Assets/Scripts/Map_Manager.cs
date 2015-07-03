@@ -30,7 +30,7 @@ public class Map_Manager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            spawnEnemy();
+            GameObject.Find("Manager_Game").GetComponent<Game_Manager>().nextRound();
     }
 
     public void destroyMap()
@@ -74,5 +74,11 @@ public class Map_Manager : MonoBehaviour
     {
         GameObject obj = (GameObject)Instantiate(enemy, new Vector3(), transform.localRotation);
         obj.GetComponent<Enemy_Manager>().init(path, this.map.transform);
+    }
+
+    public void spawnEnemy(float health, float speed)
+    {
+        GameObject obj = (GameObject)Instantiate(enemy, new Vector3(), transform.localRotation);
+        obj.GetComponent<Enemy_Manager>().init(path, this.map.transform, health, speed);
     }
 }

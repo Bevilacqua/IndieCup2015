@@ -26,7 +26,7 @@ public class Enemy_Manager : MonoBehaviour
         this.initialized = true;
     }
 
-    public void init(List<Node> nodeList, Transform mapParent, float speed, float health)
+    public void init(List<Node> nodeList, Transform mapParent, float health, float speed)
     {
         this.speed = speed;
         this.health = health;
@@ -81,7 +81,8 @@ public class Enemy_Manager : MonoBehaviour
                 else
                     alterations.z = speed * Time.deltaTime;
             }
-
+            Vector3 lookPosition = new Vector3(path[pathFindingProgress].getGameObject().transform.position.x, transform.position.y, path[pathFindingProgress].getGameObject().transform.position.z);
+            transform.LookAt(lookPosition);
             transform.position += alterations;
 
             if (diff.x == 0f && diff.z == 0f)

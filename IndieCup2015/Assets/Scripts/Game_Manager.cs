@@ -9,6 +9,9 @@ public class Game_Manager : MonoBehaviour {
     private float difficulty = 1f;
     private int money = 0;
 
+    private int round = 0;
+    private int enemiesDeployed = 0;
+
     private UI_Manager UIManager;
     private Map_Manager mapManager;
 
@@ -25,8 +28,34 @@ public class Game_Manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    if(round > 0)
+        {
+            if(enemiesDeployed < round)
+            {
+               //TODO: randomize enemy deployment time
+                if(Random.Range(0, 200) == 2)
+                {
+                    mapManager.spawnEnemy((50f * difficulty), difficulty);
+                    enemiesDeployed++;
+                }
+            }
+            else
+            {
+                if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+                {
+                    nextRound();
+                    Debug.Log(round);
+                }
+            }
+        }
 	}
+
+    public void nextRound()
+    {
+        round++;
+        enemiesDeployed = 0;
+        difficulty += .05f;
+    }
 
     public void enemyPass(float enemyHealth)
     {
@@ -42,6 +71,7 @@ public class Game_Manager : MonoBehaviour {
 
     public void addMoneyFromTower(int amount)
     {
+
         money += amount;
     }
 
