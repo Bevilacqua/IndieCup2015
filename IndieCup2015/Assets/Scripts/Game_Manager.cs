@@ -55,6 +55,7 @@ public class Game_Manager : MonoBehaviour {
         round++;
         enemiesDeployed = 0;
         difficulty += .05f;
+        UIManager.alertRound(round);
     }
 
     public void enemyPass(float enemyHealth)

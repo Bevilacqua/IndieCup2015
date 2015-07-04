@@ -26,4 +26,13 @@ public class UI_Manager : MonoBehaviour {
     {
         MoneyText.text = "" + money;
     }
+
+    public void alertRound(int round)
+    {
+        GameObject.FindGameObjectWithTag("RoundTextParent").transform.localPosition = new Vector3();
+        foreach (GameObject gobj in GameObject.FindGameObjectsWithTag("RoundText"))
+        {
+            gobj.GetComponent<Text>().text = "Round # " + round;
+        }
+    }
 }
