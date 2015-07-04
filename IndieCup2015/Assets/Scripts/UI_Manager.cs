@@ -29,10 +29,13 @@ public class UI_Manager : MonoBehaviour {
 
     public void alertRound(int round)
     {
-        GameObject.FindGameObjectWithTag("RoundTextParent").transform.localPosition = new Vector3();
+        GameObject parentUI = (GameObject) GameObject.FindGameObjectWithTag("RoundTextParent");
+
         foreach (GameObject gobj in GameObject.FindGameObjectsWithTag("RoundText"))
         {
             gobj.GetComponent<Text>().text = "Round # " + round;
         }
+
+        parentUI.GetComponent<Animator>().Play("Round", -1, 0f);
     }
 }
