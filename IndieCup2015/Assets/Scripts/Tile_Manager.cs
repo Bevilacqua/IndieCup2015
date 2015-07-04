@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Non_Mono;
+using UnityEngine.UI;
 
 public class Tile_Manager : MonoBehaviour {
     private Tower_Manager towerManager;
@@ -25,7 +26,7 @@ public class Tile_Manager : MonoBehaviour {
 
     void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0) && !gameObject.GetComponent<Tile_Info>().transversable)
+        if (Input.GetMouseButtonDown(0) && !gameObject.GetComponent<Tile_Info>().transversable && !Reward_Manager.placed)
         {
             if (hasTower()) 
             {
@@ -35,33 +36,30 @@ public class Tile_Manager : MonoBehaviour {
             {
                 //DEBUG: PLACES AN ATTACK TOWER
                 lowerTile();
-                GameObject tower = (GameObject)Instantiate(towerPrefabs.prefab_AttackTower, transform.position, transform.localRotation);
-                towerManager = tower.GetComponent<Tower_Manager>();
-                tower.transform.parent = transform;
-                tower.transform.localPosition = new Vector3(0f, 1f, 0f);
-                towerManager.init(Tower_Manager.Tower_Class.ATTACK, 10f, 1f);
-                liftTile();
-            }
-        }
-        if (Input.GetMouseButtonDown(1) && !gameObject.GetComponent<Tile_Info>().transversable)
-        {
-            if (hasTower())
-            {
-                getTower().upgrade();
-            }
-            else
-            {
-                //DEBUG: PLACES AN ATTACK TOWER
-                lowerTile();
-                GameObject tower = (GameObject)Instantiate(towerPrefabs.prefab_SlowTower, transform.position, transform.localRotation);
-                towerManager = tower.GetComponent<Tower_Manager>();
-                tower.transform.parent = transform;
-                tower.transform.localPosition = new Vector3(0f, 1f, 0f);
-                towerManager.init(Tower_Manager.Tower_Class.SLOW, 10f, 1f);
-                liftTile();
-            }
-        }
+                GameObject tower = null;
 
+                switch(Reward_Manager.type)
+                {
+                    case Tower_Manager.Tower_Class.ATTACK:
+                        tower = (GameObject)Instantiate(towerPrefabs.prefab_AttackTower, transform.position, transform.localRotation);
+                        break;
+                    case Tower_Manager.Tower_Class.MONEY:
+                        tower = (GameObject)Instantiate(towerPrefabs.prefab_MoneyTower, transform.position, transform.localRotation);
+                        break;
+                    case Tower_Manager.Tower_Class.SLOW:
+                        tower = (GameObject)Instantiate(towerPrefabs.prefab_SlowTower, transform.position, transform.localRotation);
+                        break;
+                }
+
+                towerManager = tower.GetComponent<Tower_Manager>();
+                tower.transform.parent = transform;
+                tower.transform.localPosition = new Vector3(0f, 1f, 0f);
+                towerManager.init(Reward_Manager.type, Reward_Manager.speed,Reward_Manager.power);
+                liftTile();
+                GameObject.Find("TowerPurchasedInfo").GetComponent<Text>().enabled = false;
+                Reward_Manager.placed = true;
+            }
+        }
     }
 
     void OnMouseExit()

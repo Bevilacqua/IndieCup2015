@@ -56,6 +56,8 @@ public class Game_Manager : MonoBehaviour {
         enemiesDeployed = 0;
         difficulty += .05f;
         UIManager.alertRound(round);
+        UIManager.getRewardUI().SetActive(true);
+        UIManager.getRewardUI().GetComponent<Reward_Manager>().generateTower(round);
     }
 
     public void enemyPass(float enemyHealth)
@@ -79,5 +81,10 @@ public class Game_Manager : MonoBehaviour {
     public int getMoney()
     {
         return this.money;
+    }
+
+    public void subtractMoney()
+    {
+        money -= Reward_Manager.cost;
     }
 }

@@ -52,7 +52,12 @@ public class Tower_Manager : MonoBehaviour
 
     private void shootAtEnemyWithMostProgress()
     {
-        if (towerClass == Tower_Class.MONEY) addMoney((int)damage);
+        if (towerClass == Tower_Class.MONEY)
+        {
+            addMoney((int)damage);
+            return;
+        }
+
         GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject farthest = null;
         if (listOfEnemies.Length == 0)
@@ -85,7 +90,12 @@ public class Tower_Manager : MonoBehaviour
 
     private void shootAtClosestEnemy()
     {
-        if (towerClass == Tower_Class.MONEY) addMoney((int)damage);
+        if (towerClass == Tower_Class.MONEY)
+        {
+            addMoney((int)damage);
+            return;
+        } 
+        
         GameObject[] listOfEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject closest = null;
         float closestValue = 0;

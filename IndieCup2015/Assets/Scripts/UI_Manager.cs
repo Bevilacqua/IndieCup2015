@@ -5,11 +5,13 @@ using UnityEngine.UI;
 public class UI_Manager : MonoBehaviour {
     private Text HealthText;
     private Text MoneyText;
+    private GameObject RewardUI;
 
 	// Use this for initialization
 	void Start () {
         HealthText = GameObject.Find("HealthText").GetComponent<Text>();
         MoneyText = GameObject.Find("MoneyText").GetComponent<Text>();
+        RewardUI = GameObject.Find("RewardScreen");
 	}
 	
 	// Update is called once per frame
@@ -37,5 +39,10 @@ public class UI_Manager : MonoBehaviour {
         }
 
         parentUI.GetComponent<Animator>().Play("Round", -1, 0f);
+    }
+
+    public GameObject getRewardUI()
+    {
+        return this.RewardUI;
     }
 }

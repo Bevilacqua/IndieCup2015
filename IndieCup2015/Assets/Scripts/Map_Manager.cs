@@ -74,11 +74,13 @@ public class Map_Manager : MonoBehaviour
     {
         GameObject obj = (GameObject)Instantiate(enemy, new Vector3(), transform.localRotation);
         obj.GetComponent<Enemy_Manager>().init(path, this.map.transform);
+        obj.GetComponent<Renderer>().material.color = new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
     }
 
     public void spawnEnemy(float health, float speed)
     {
         GameObject obj = (GameObject)Instantiate(enemy, new Vector3(), transform.localRotation);
         obj.GetComponent<Enemy_Manager>().init(path, this.map.transform, health, speed);
+        obj.GetComponent<Renderer>().material.color = new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
     }
 }
