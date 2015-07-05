@@ -15,8 +15,8 @@ The following mechanics are planned for the initial release at the end of the #i
 - [x] Three different tower classes (Attack, Slow, Money-generating)
 - [ ] Upgradable towers
 - [ ] Upgradable temple
-- [ ] Randomly generated towers
-- [ ] Randomly generated enemies
+- [x] Randomly generated towers
+- [x] Randomly generated enemies
 - [x] Tile graph creation 
 - [x] Enemy pathfinding
 

@@ -41,8 +41,8 @@ public class Reward_Manager : MonoBehaviour {
             return;
         }
 
-        speed = Random.Range((round / 2) * 100f, (round) * 100f);
-        power = Random.Range((round / 2) * 20f, (round) * 20f);
+        speed = Random.Range((10f + (round * .001f)), (10f + ((round * .001f) * 10f)));
+        power = Random.Range((round / 2) * 2f, (round) * 2f);
         cost = Mathf.CeilToInt((speed * 4) + (power * 2));
         float randVal = Random.Range(0, 100);
         if (randVal < 50)

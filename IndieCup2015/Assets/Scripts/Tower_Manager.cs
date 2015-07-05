@@ -86,6 +86,7 @@ public class Tower_Manager : MonoBehaviour
         bullet.GetComponent<Bullet_Info>().init(this.towerClass, this.damage);
         transform.LookAt(posOfFarthest);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * speedOfAttack * Time.smoothDeltaTime);
+        bullet.transform.LookAt(posOfFarthest);
     }
 
     private void shootAtClosestEnemy()
@@ -131,6 +132,7 @@ public class Tower_Manager : MonoBehaviour
         bullet.GetComponent<Bullet_Info>().init(this.towerClass, this.damage);
         transform.LookAt(posOfClosest);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * speedOfAttack * Time.smoothDeltaTime);
+        bullet.transform.LookAt(posOfClosest);
     }
 
     private void addMoney(int amount)
