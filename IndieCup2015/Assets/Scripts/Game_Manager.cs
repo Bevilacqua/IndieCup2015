@@ -61,6 +61,13 @@ public class Game_Manager : MonoBehaviour {
         UIManager.getRewardUI().GetComponent<Reward_Manager>().generateTower(round);
     }
 
+    public void addRoundNoReward()
+    {
+        round++;
+        enemiesDeployed = 0;
+        UIManager.alertRound(round);
+    }
+
     public void enemyPass(float enemyHealth)
     {
         health -= (int)(enemyHealth * difficulty);
