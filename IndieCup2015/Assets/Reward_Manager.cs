@@ -7,6 +7,7 @@ public class Reward_Manager : MonoBehaviour {
     private Text type_Text;
     private Text power_Text;
     private Text cost_Text;
+    private Text cash_Text;
 
     public static bool placed = true;
     public static float speed;
@@ -20,6 +21,7 @@ public class Reward_Manager : MonoBehaviour {
         type_Text = GameObject.Find("TYPEVALUE").GetComponent<Text>();
         power_Text = GameObject.Find("POWERVALUE").GetComponent<Text>();
         cost_Text = GameObject.Find("COSTVALUE").GetComponent<Text>();
+        cash_Text = GameObject.Find("CASHVALUE").GetComponent<Text>();
 
         generateTower(0);
 	}
@@ -41,7 +43,7 @@ public class Reward_Manager : MonoBehaviour {
             return;
         }
 
-        speed = Random.Range((10f + (round * .001f)), (10f + ((round * .001f) * 10f)));
+        speed = Random.Range((20f + (round * .001f)), (20f + ((round * .001f) * 10f)));
         power = Random.Range((round / 2) * 2f, (round) * 2f);
         cost = Mathf.CeilToInt((speed * 4) + (power * 2));
         float randVal = Random.Range(0, 100);
@@ -69,6 +71,8 @@ public class Reward_Manager : MonoBehaviour {
         power_Text.text = "" + power;
         type_Text.text  = type.ToString();
         cost_Text.text  = "$ " + cost;
+        cash_Text.text  = "$ " + Mathf.FloorToInt(cost / 2f);
+
         if (cost == 0) cost_Text.text = "A gift from the Gods.";
     }
 
@@ -77,4 +81,5 @@ public class Reward_Manager : MonoBehaviour {
         GameObject.Find("TowerPurchasedInfo").GetComponent<Text>().enabled = true;
         placed = false;
     }
+
 }

@@ -58,6 +58,7 @@ public class Game_Manager : MonoBehaviour {
         UIManager.alertRound(round);
         if (round == 1) return; //Player won't have any money at this point
         UIManager.getRewardUI().SetActive(true);
+        UIManager.getRewardUI().GetComponent<Animator>().Play("RoundEnd- ENTER");
         UIManager.getRewardUI().GetComponent<Reward_Manager>().generateTower(round);
     }
 
@@ -95,6 +96,12 @@ public class Game_Manager : MonoBehaviour {
     public void subtractMoney()
     {
         money -= Reward_Manager.cost;
+        UIManager.setMoney(money);
+    }
+
+    public void acceptCashReward()
+    {
+        money += Mathf.FloorToInt(Reward_Manager.cost / 2f);
         UIManager.setMoney(money);
     }
 }
