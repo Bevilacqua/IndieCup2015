@@ -12,6 +12,8 @@ public class Map_Manager : MonoBehaviour
     public Vector2 spawnLocation = new Vector2();
     public Vector2 goalLocation = new Vector2();
 
+    public GameObject prefab_temple;
+
     public Map_Creator creator;
     private Map_Info map_info;
     private List<Node> path;
@@ -65,6 +67,13 @@ public class Map_Manager : MonoBehaviour
 
         if (path.Count == 0)
             return false;
+
+        //TODO: Place Temple (Tile_Manager)
+        GameObject temple = (GameObject) Instantiate(prefab_temple, map_info.getTileMap()[(int) goalLocation.x, (int) goalLocation.y].transform.position, transform.localRotation);
+        Tower_Manager towerManager = temple.GetComponent<Tower_Manager>();
+        temple.transform.parent = map_info.getTileMap()[(int)goalLocation.x, (int)goalLocation.y].transform;
+        temple.transform.localPosition = new Vector3(0f, 1f, 0f);
+        towerManager.init(Tower_Manager.Tower_Class.TEMPLE, 35, 15);
 
         return true;
         

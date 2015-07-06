@@ -8,7 +8,8 @@ public class Tower_Manager : MonoBehaviour
     {
         ATTACK,
         SLOW,
-        MONEY
+        MONEY,
+        TEMPLE
     };
 
     private bool initialized = false;
@@ -87,6 +88,8 @@ public class Tower_Manager : MonoBehaviour
         transform.LookAt(posOfFarthest);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * speedOfAttack * Time.smoothDeltaTime);
         bullet.transform.LookAt(posOfFarthest);
+        if(towerClass == Tower_Class.TEMPLE)
+            transform.localRotation = new Quaternion();
     }
 
     private void shootAtClosestEnemy()
@@ -133,6 +136,8 @@ public class Tower_Manager : MonoBehaviour
         transform.LookAt(posOfClosest);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * speedOfAttack * Time.smoothDeltaTime);
         bullet.transform.LookAt(posOfClosest);
+        if (towerClass == Tower_Class.TEMPLE)
+            transform.localRotation = new Quaternion();
     }
 
     private void addMoney(int amount)
