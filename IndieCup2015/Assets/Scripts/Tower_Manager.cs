@@ -40,7 +40,7 @@ public class Tower_Manager : MonoBehaviour
 
         if (coolDownElapsedTime >= (globalTimeBetweenAttack - (.01f * speedOfAttack)))
         {
-            if (towerClass == Tower_Class.TEMPLE && !Application.isMobilePlatform)
+            if (towerClass == Tower_Class.TEMPLE && !Application.isMobilePlatform && Input.GetMouseButton(0))
                 shootAtMousePos();
             else
                 shootAtClosestEnemy();

@@ -26,7 +26,7 @@ public class Tile_Manager : MonoBehaviour {
 
     void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0) && !gameObject.GetComponent<Tile_Info>().transversable && !Reward_Manager.placed && Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0) && !gameObject.GetComponent<Tile_Info>().transversable && !Reward_Manager.placed)
         {
             if (hasTower()) 
             {
