@@ -40,13 +40,45 @@ public class Tower_Manager : MonoBehaviour
 
         if (coolDownElapsedTime >= (globalTimeBetweenAttack - (.01f * speedOfAttack)))
         {
-            shootAtClosestEnemy();
+            if (towerClass == Tower_Class.TEMPLE && !Application.isMobilePlatform)
+                shootAtMousePos();
+            else
+                shootAtClosestEnemy();
+
             coolDownElapsedTime = 0f;
         }
         else
         {
             coolDownElapsedTime += Time.deltaTime;
         }
+    }
+
+    private void shootAtMousePos()
+    {
+        if (towerClass == Tower_Class.MONEY)
+        {
+            addMoney((int)damage);
+            return;
+        }
+
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+            return;
+
+        Vector3 posOfMouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 25f));
+        posOfMouse.y = transform.position.y;
+        //Add force towards position
+        GameObject pre_bullet = null;
+        if (towerClass == Tower_Class.SLOW)
+            pre_bullet = GameObject.Find("Manager_Map").GetComponent<Tower_Prefab_List>().prefab_SlowProjectile;
+        else
+            pre_bullet = GameObject.Find("Manager_Map").GetComponent<Tower_Prefab_List>().prefab_AttackProjectile;
+
+        GameObject bullet = (GameObject)Instantiate(pre_bullet, new Vector3(transform.position.x, 2.5f, transform.position.z), transform.localRotation);
+        bullet.GetComponent<Bullet_Info>().init(this.towerClass, this.damage);
+        transform.LookAt(posOfMouse);
+        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f * speedOfAttack * Time.smoothDeltaTime);
+        if (towerClass == Tower_Class.TEMPLE)
+            transform.localRotation = new Quaternion();
     }
 
     private void shootAtEnemyWithMostProgress()
