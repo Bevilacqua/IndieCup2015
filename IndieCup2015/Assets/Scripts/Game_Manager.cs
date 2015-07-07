@@ -44,7 +44,6 @@ public class Game_Manager : MonoBehaviour {
                 if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
                 {
                     nextRound();
-                    Debug.Log(round);
                 }
             }
         }

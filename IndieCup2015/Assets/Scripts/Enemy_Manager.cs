@@ -22,7 +22,7 @@ public class Enemy_Manager : MonoBehaviour
         this.path = nodeList;
         this.pathFindingProgress = 0;
         transform.parent = mapParent;
-        transform.localPosition = new Vector3(path[pathFindingProgress].getGameObject().transform.localPosition.x, path[pathFindingProgress].getGameObject().transform.localPosition.y + 1f, path[pathFindingProgress].getGameObject().transform.localPosition.z);
+        transform.localPosition = new Vector3(path[pathFindingProgress].getGameObject().transform.localPosition.x, path[pathFindingProgress].getGameObject().transform.localPosition.y + .5f , path[pathFindingProgress].getGameObject().transform.localPosition.z);
         this.initialized = true;
     }
 

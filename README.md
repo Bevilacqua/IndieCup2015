@@ -21,7 +21,9 @@ The following mechanics are planned for the initial release at the end of the #i
 - [x] Enemy pathfinding
 
 The following mechanics would be nice but may not appear in the initial release.
-- [ ] Random map generation
+- [x] Random map generation
+- [ ] Better map generation
+- [ ] Better art. (non-programmer art)
 
 
 

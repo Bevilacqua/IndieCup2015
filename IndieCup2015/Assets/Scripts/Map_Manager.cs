@@ -81,15 +81,18 @@ public class Map_Manager : MonoBehaviour
 
     public void spawnEnemy()
     {
-        GameObject obj = (GameObject)Instantiate(enemy, new Vector3(), transform.localRotation);
+        Vector3 pos = map_info.getTileMap()[(int)spawnLocation.x, (int)spawnLocation.y].transform.position;
+        pos.y = -1f;
+        GameObject obj = (GameObject)Instantiate(enemy, pos, transform.localRotation);
         obj.GetComponent<Enemy_Manager>().init(path, this.map.transform);
         obj.GetComponent<Renderer>().material.color = new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
     }
 
     public void spawnEnemy(float health, float speed)
     {
-        GameObject obj = (GameObject)Instantiate(enemy, new Vector3(), transform.localRotation);
-        obj.GetComponent<Enemy_Manager>().init(path, this.map.transform, health, speed);
+        Vector3 pos = map_info.getTileMap()[(int)spawnLocation.x, (int)spawnLocation.y].transform.position;
+        pos.y = -1f;
+        GameObject obj = (GameObject)Instantiate(enemy, pos, transform.localRotation); obj.GetComponent<Enemy_Manager>().init(path, this.map.transform, health, speed);
         obj.GetComponent<Renderer>().material.color = new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
     }
 }

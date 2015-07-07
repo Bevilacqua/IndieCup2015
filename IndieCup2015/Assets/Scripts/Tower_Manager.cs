@@ -34,14 +34,12 @@ public class Tower_Manager : MonoBehaviour
 
         if (globalTimeBetweenAttack < (.0001f * speedOfAttack))
         {
-            Debug.Log("Shot fired - default");
             shootAtClosestEnemy();
             return;
         }
 
         if (coolDownElapsedTime >= (globalTimeBetweenAttack - (.01f * speedOfAttack)))
         {
-            Debug.Log("Shot fired");
             shootAtClosestEnemy();
             coolDownElapsedTime = 0f;
         }
@@ -76,6 +74,7 @@ public class Tower_Manager : MonoBehaviour
 
         //Find position of farthest
         Vector3 posOfFarthest = farthest.transform.position;
+        posOfFarthest.y = transform.position.y;
         //Add force towards position
         GameObject pre_bullet = null;
         if (towerClass == Tower_Class.SLOW)
@@ -124,6 +123,7 @@ public class Tower_Manager : MonoBehaviour
 
         //Find position of farthest
         Vector3 posOfClosest = closest.transform.position;
+        posOfClosest.y = transform.position.y;
         //Add force towards position
         GameObject pre_bullet = null;
         if (towerClass == Tower_Class.SLOW)
