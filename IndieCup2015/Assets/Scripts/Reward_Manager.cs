@@ -15,6 +15,8 @@ public class Reward_Manager : MonoBehaviour {
     public static Tower_Manager.Tower_Class type;
     public static int cost;
 
+    public UI_Manager UIManager;
+
 	// Use this for initialization
 	void Start () {
         speed_Text = GameObject.Find("SPEEDVALUE").GetComponent<Text>();
@@ -22,6 +24,8 @@ public class Reward_Manager : MonoBehaviour {
         power_Text = GameObject.Find("POWERVALUE").GetComponent<Text>();
         cost_Text = GameObject.Find("COSTVALUE").GetComponent<Text>();
         cash_Text = GameObject.Find("CASHVALUE").GetComponent<Text>();
+
+        UIManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UI_Manager>();
 
         generateTower(0);
 	}
@@ -36,14 +40,14 @@ public class Reward_Manager : MonoBehaviour {
         if(round == 0)
         {
             speed = 30f;
-            power = 5f;
+            power = 10f;
             cost = 0;
             type = Tower_Manager.Tower_Class.ATTACK;
             displayValues();
             return;
         }
 
-        speed = Random.Range((20f + (round * .001f)), (20f + ((round * .001f) * 10f)));
+        speed = Random.Range((20f + (round * .001f)), (25f + ((round * .001f) * 100f)));
         power = Random.Range((round / 2) * 2f, (round) * 2f);
         cost = Mathf.CeilToInt((speed * 4) + (power * 2));
         float randVal = Random.Range(0, 100);
@@ -78,7 +82,7 @@ public class Reward_Manager : MonoBehaviour {
 
     public void displayPurchasedText()
     {
-        GameObject.Find("TowerPurchasedInfo").GetComponent<Text>().enabled = true;
+        UIManager.activatePurchasedText();
         placed = false;
     }
 

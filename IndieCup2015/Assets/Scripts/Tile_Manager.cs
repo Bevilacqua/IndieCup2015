@@ -56,7 +56,7 @@ public class Tile_Manager : MonoBehaviour {
                 tower.transform.localPosition = new Vector3(0f, 1f, 0f);
                 towerManager.init(Reward_Manager.type, Reward_Manager.speed,Reward_Manager.power);
                 liftTile();
-                GameObject.Find("TowerPurchasedInfo").GetComponent<Text>().enabled = false;
+                GameObject.FindGameObjectWithTag("Canvas").GetComponent<UI_Manager>().deactivatePurchasedText();
                 Reward_Manager.placed = true;
             }
         }
