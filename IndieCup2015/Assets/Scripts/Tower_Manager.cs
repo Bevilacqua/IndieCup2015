@@ -19,6 +19,7 @@ public class Tower_Manager : MonoBehaviour
     private Tower_Class towerClass;
     private float speedOfAttack;
     private float damage; //Value used for damage, slow down rate, money generated
+    private int value;
 
     public void init(Tower_Class towerClass, float speedOfAttack, float damage)
     {
@@ -26,6 +27,7 @@ public class Tower_Manager : MonoBehaviour
         this.speedOfAttack = speedOfAttack;
         this.damage = damage;
         this.initialized = true;
+        calculateValue();
     }
 
     void Update()
@@ -51,6 +53,11 @@ public class Tower_Manager : MonoBehaviour
         {
             coolDownElapsedTime += Time.deltaTime;
         }
+    }
+
+    public void calculateValue()
+    {
+        value = Mathf.CeilToInt((speedOfAttack * 4) + (damage * 2));
     }
 
     private void shootAtMousePos()
@@ -181,6 +188,7 @@ public class Tower_Manager : MonoBehaviour
     {
         this.speedOfAttack *= 1.05f;
         this.damage *= 1.05f;
+        calculateValue();
     }
 
     public Tower_Class getTowerClass()
@@ -201,5 +209,10 @@ public class Tower_Manager : MonoBehaviour
     public bool getInitialized()
     {
         return this.initialized;
+    }
+
+    public int getValue()
+    {
+        return this.value;
     }
 }

@@ -7,6 +7,8 @@ public class UI_Manager : MonoBehaviour {
     private Text MoneyText;
     private GameObject RewardUI;
     private GameObject PurchasedInfo;
+    private GameObject TowerInfoUI;
+    private GameObject UpgradeScreen;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +16,11 @@ public class UI_Manager : MonoBehaviour {
         MoneyText = GameObject.Find("MoneyText").GetComponent<Text>();
         RewardUI = GameObject.Find("RewardScreen");
         PurchasedInfo = GameObject.Find("TowerPurchasedInfo");
+        TowerInfoUI = GameObject.Find("TowerInfo");
+        UpgradeScreen = GameObject.Find("TowerUpgradeScreen");
+        UpgradeScreen.SetActive(false);
         PurchasedInfo.SetActive(false);
+        TowerInfoUI.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -58,5 +64,31 @@ public class UI_Manager : MonoBehaviour {
     public void deactivatePurchasedText()
     {
         PurchasedInfo.GetComponent<Animator>().Play("PURCHASEDINFO_REVERSE");
+    }
+
+    public void displayTowerInfo(Tower_Manager.Tower_Class type, float power, float speed)
+    {
+        TowerInfoUI.SetActive(true);
+        TowerInfoUI.transform.GetChild(0).GetComponent<Text>().text = "" + type;
+        TowerInfoUI.transform.GetChild(1).GetComponent<Text>().text = "" + power;
+        TowerInfoUI.transform.GetChild(2).GetComponent<Text>().text = "" + speed;
+    }
+
+    public void hideTowerInfo()
+    {
+        TowerInfoUI.SetActive(false);
+    }
+
+    public void showUpgradeScreen(Tower_Manager towerManager)
+    {
+        UpgradeScreen.SetActive(true);
+        GameObject.Find("SELLCOST").GetComponent<Text>().text = "$   " + towerManager.getValue();
+        GameObject.Find("UPGRADECOST").GetComponent<Text>().text = "$   " + Mathf.FloorToInt(towerManager.getValue() * .85f);
+        UpgradeScreen.GetComponent<UpgradeScreen_Manager>().setTowerManager(towerManager);
+    }
+
+    public void hideUpgradeScreen()
+    {
+        UpgradeScreen.SetActive(false);
     }
 }

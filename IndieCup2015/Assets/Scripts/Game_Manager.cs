@@ -82,7 +82,6 @@ public class Game_Manager : MonoBehaviour {
 
     public void addMoneyFromTower(int amount)
     {
-
         money += amount;
         UIManager.setMoney(money);
     }
@@ -92,9 +91,14 @@ public class Game_Manager : MonoBehaviour {
         return this.money;
     }
 
-    public void subtractMoney()
+    public void acceptTowerReward()
     {
-        money -= Reward_Manager.cost;
+        subtractMoney(Reward_Manager.cost);
+    }
+
+    public void subtractMoney(int money)
+    {
+        this.money -= money;
         UIManager.setMoney(money);
     }
 

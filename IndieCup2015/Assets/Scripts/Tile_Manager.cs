@@ -7,10 +7,13 @@ public class Tile_Manager : MonoBehaviour {
     private Tower_Manager towerManager;
     private Tower_Prefab_List towerPrefabs;
 
+    private UI_Manager UIManager;
 
 	// Use this for initialization
 	void Start () {
         towerPrefabs = GameObject.Find("Manager_Map").GetComponent<Tower_Prefab_List>();
+        UIManager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+        
 	}
 	
 	// Update is called once per frame
@@ -21,18 +24,29 @@ public class Tile_Manager : MonoBehaviour {
     void OnMouseEnter()
     {
         if(!gameObject.GetComponent<Tile_Info>().transversable)
+        {
             liftTile();
+
+            if(hasTower())
+            {
+                UIManager.displayTowerInfo(towerManager.getTowerClass(), towerManager.getDamage(), towerManager.getSpeedOfAttack());
+            }
+            else
+            {
+                UIManager.hideTowerInfo();
+            }
+        }
     }
 
     void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0) && !gameObject.GetComponent<Tile_Info>().transversable && !Reward_Manager.placed)
+        if (Input.GetMouseButtonDown(0) && !gameObject.GetComponent<Tile_Info>().transversable)
         {
             if (hasTower()) 
             {
-                getTower().upgrade();
+                UIManager.showUpgradeScreen(getTower());
             }
-            else
+            else if(!Reward_Manager.placed)
             {
                 //DEBUG: PLACES AN ATTACK TOWER
                 lowerTile();
@@ -66,6 +80,9 @@ public class Tile_Manager : MonoBehaviour {
     {
         if (!gameObject.GetComponent<Tile_Info>().transversable)
             lowerTile();
+
+        UIManager.hideTowerInfo();
+       
     }
 
     public void liftTile()
