@@ -99,7 +99,7 @@ public class Game_Manager : MonoBehaviour {
     public void subtractMoney(int money)
     {
         this.money -= money;
-        UIManager.setMoney(money);
+        UIManager.setMoney(this.money);
     }
 
     public void acceptCashReward()

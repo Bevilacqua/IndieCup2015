@@ -72,7 +72,6 @@ public class Map_Manager : MonoBehaviour
         GameObject temple = (GameObject) Instantiate(prefab_temple, map_info.getTileMap()[(int) goalLocation.x, (int) goalLocation.y].transform.position, transform.localRotation);
         Tower_Manager towerManager = temple.GetComponent<Tower_Manager>();
         map_info.getTileMap()[(int)goalLocation.x, (int)goalLocation.y].GetComponent<Tile_Manager>().setTowerManager(towerManager);
-        Debug.Log(        map_info.getTileMap()[(int)goalLocation.x, (int)goalLocation.y].GetComponent<Tile_Manager>().hasTower());
         temple.transform.parent = map_info.getTileMap()[(int)goalLocation.x, (int)goalLocation.y].transform;
         temple.transform.localPosition = new Vector3(0f, 1f, 0f);
         towerManager.init(Tower_Manager.Tower_Class.TEMPLE, 35, 15);
