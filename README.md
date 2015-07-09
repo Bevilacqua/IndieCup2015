@@ -13,7 +13,7 @@ The idea for the game is a 3D hex-map based tower defense game. The goal is to d
 The following mechanics are planned for the initial release at the end of the #indiecup2015 jam.
 - [x] Hex-tile based map
 - [x] Three different tower classes (Attack, Slow, Money-generating)
-- [ ] Upgradable towers
+- [x] Upgradable towers
 - [ ] Upgradable temple
 - [x] Randomly generated towers
 - [x] Randomly generated enemies

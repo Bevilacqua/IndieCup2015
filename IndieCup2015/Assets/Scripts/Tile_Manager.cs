@@ -26,27 +26,28 @@ public class Tile_Manager : MonoBehaviour {
         if(!gameObject.GetComponent<Tile_Info>().transversable)
         {
             liftTile();
+        }
 
-            if(hasTower())
-            {
-                UIManager.displayTowerInfo(towerManager.getTowerClass(), towerManager.getDamage(), towerManager.getSpeedOfAttack());
-            }
-            else
-            {
-                UIManager.hideTowerInfo();
-            }
+        if (hasTower())
+        {
+            UIManager.displayTowerInfo(towerManager.getTowerClass(), towerManager.getDamage(), towerManager.getSpeedOfAttack());
+        }
+        else
+        {
+            UIManager.hideTowerInfo();
         }
     }
 
     void OnMouseOver()
     {
+        if (hasTower() && Input.GetMouseButtonDown(0)) 
+        {
+            UIManager.showUpgradeScreen(getTower());
+        }
+
         if (Input.GetMouseButtonDown(0) && !gameObject.GetComponent<Tile_Info>().transversable)
         {
-            if (hasTower()) 
-            {
-                UIManager.showUpgradeScreen(getTower());
-            }
-            else if(!Reward_Manager.placed)
+            if(!Reward_Manager.placed && !hasTower())
             {
                 //DEBUG: PLACES AN ATTACK TOWER
                 lowerTile();

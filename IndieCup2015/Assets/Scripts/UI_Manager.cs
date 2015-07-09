@@ -82,8 +82,8 @@ public class UI_Manager : MonoBehaviour {
     public void showUpgradeScreen(Tower_Manager towerManager)
     {
         UpgradeScreen.SetActive(true);
-        GameObject.Find("SELLCOST").GetComponent<Text>().text = "$   " + towerManager.getValue();
-        GameObject.Find("UPGRADECOST").GetComponent<Text>().text = "$   " + Mathf.FloorToInt(towerManager.getValue() * .85f);
+        GameObject.Find("SELLCOST").GetComponent<Text>().text = " + $   " + towerManager.getValue();
+        GameObject.Find("UPGRADECOST").GetComponent<Text>().text = " - $   " + Mathf.FloorToInt(towerManager.getValue() * .85f);
         UpgradeScreen.GetComponent<UpgradeScreen_Manager>().setTowerManager(towerManager);
     }
 
