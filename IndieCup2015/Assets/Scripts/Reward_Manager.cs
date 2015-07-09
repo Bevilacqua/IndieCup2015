@@ -32,7 +32,11 @@ public class Reward_Manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (GameObject.Find("Manager_Game").GetComponent<Game_Manager>().getMoney() < cost)
+            GameObject.Find("AcceptButton").GetComponent<Button>().interactable = false;
+        else
+            GameObject.Find("AcceptButton").GetComponent<Button>().interactable = true;
+
 	}
 
     public void generateTower(int round)
