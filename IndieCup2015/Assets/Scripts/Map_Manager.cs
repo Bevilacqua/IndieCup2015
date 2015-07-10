@@ -25,7 +25,7 @@ public class Map_Manager : MonoBehaviour
     void Start()
     {
         if (createMap() == false)
-            Application.LoadLevel(0);
+            Application.LoadLevel("default");
     }
 
     // Update is called once per frame

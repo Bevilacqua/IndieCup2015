@@ -25,7 +25,8 @@ public class UI_Manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (GameJolt.API.Manager.Instance.CurrentUser != null)
+            GameJolt.API.Trophies.Unlock(34433);
 	}
 
     public void setHealth(int health)

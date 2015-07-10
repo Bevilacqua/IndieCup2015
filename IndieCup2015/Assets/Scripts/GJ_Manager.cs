@@ -8,7 +8,7 @@ public class GJ_Manager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        GameObject.Find("Canvas").GetComponent<Animator>().Play("MENULOAD");
 	}
 	
 	// Update is called once per frame
@@ -35,6 +35,6 @@ public class GJ_Manager : MonoBehaviour {
 
     public void goToPlayScreen()
     {
-        Application.LoadLevel(1);
+        Application.LoadLevel("default");
     }
 }
