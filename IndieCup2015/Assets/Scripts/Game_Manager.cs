@@ -28,6 +28,13 @@ public class Game_Manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if(health <= 0)
+        {
+            EndGame.roundNumber = round;
+            Application.LoadLevel("end");
+        }
+
 	    if(round > 0)
         {
             if(enemiesDeployed < round)
@@ -52,6 +59,13 @@ public class Game_Manager : MonoBehaviour {
     public void nextRound()
     {
         round++;
+
+        if (round == 10 && GameJolt.API.Manager.Instance.CurrentUser != null) GameJolt.API.Trophies.Unlock(34437);
+        if (round == 25 && GameJolt.API.Manager.Instance.CurrentUser != null) GameJolt.API.Trophies.Unlock(34438); 
+        if (round == 50 && GameJolt.API.Manager.Instance.CurrentUser != null) GameJolt.API.Trophies.Unlock(34439); 
+        if (round == 75 && GameJolt.API.Manager.Instance.CurrentUser != null) GameJolt.API.Trophies.Unlock(34440); 
+        if (round == 100 && GameJolt.API.Manager.Instance.CurrentUser != null) GameJolt.API.Trophies.Unlock(34441); 
+
         enemiesDeployed = 0;
         difficulty += .05f;
         UIManager.alertRound(round);

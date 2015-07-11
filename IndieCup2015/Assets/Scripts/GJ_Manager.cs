@@ -13,7 +13,7 @@ public class GJ_Manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(GameJolt.API.Manager.Instance.CurrentUser != null && !displayedLogin)
+        if (GameJolt.API.Manager.Instance.CurrentUser != null && !displayedLogin && GameJolt.API.Manager.Instance.CurrentUser.IsAuthenticated)
         {
             Debug.Log("Login: " + GameJolt.API.Manager.Instance.CurrentUser.Name);
             GameJolt.UI.Manager.Instance.QueueNotification("Welcome " + GameJolt.API.Manager.Instance.CurrentUser.Name + "!", GameJolt.API.Manager.Instance.CurrentUser.Avatar);
