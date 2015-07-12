@@ -20,6 +20,7 @@ public class Tower_Manager : MonoBehaviour
     private float speedOfAttack;
     private float damage; //Value used for damage, slow down rate, money generated
     private int value;
+    private int upgradeCount; //Limit upgrades to 3
 
     public void init(Tower_Class towerClass, float speedOfAttack, float damage)
     {
@@ -188,6 +189,7 @@ public class Tower_Manager : MonoBehaviour
     {
         this.speedOfAttack *= 1.05f;
         this.damage *= 1.05f;
+        this.upgradeCount++;
         calculateValue();
     }
 
@@ -214,5 +216,11 @@ public class Tower_Manager : MonoBehaviour
     public int getValue()
     {
         return this.value;
+    }
+
+    public bool canUpgrade()
+    {
+        if (upgradeCount < 3) return true;
+        else return false;
     }
 }

@@ -81,9 +81,20 @@ public class UI_Manager : MonoBehaviour {
     public void showUpgradeScreen(Tower_Manager towerManager)
     {
         UpgradeScreen.SetActive(true);
+        GameObject.Find("UPGRADEBUTTON").GetComponent<Button>().interactable = true;
         UpgradeScreen.GetComponent<Animator>().Play("DISPLAY");
         GameObject.Find("SELLCOST").GetComponent<Text>().text = " + $   " + towerManager.getValue();
         GameObject.Find("UPGRADECOST").GetComponent<Text>().text = " - $   " + Mathf.FloorToInt(towerManager.getValue() * .85f);
+
+        if ((Mathf.FloorToInt(towerManager.getValue() * .85f)) > GameObject.Find("Manager_Game").GetComponent<Game_Manager>().getMoney())
+            GameObject.Find("UPGRADEBUTTON").GetComponent<Button>().interactable = false;
+       
+        if(!towerManager.canUpgrade())
+        {
+            GameObject.Find("UPGRADEBUTTON").GetComponent<Button>().interactable = false;
+            GameObject.Find("UPGRADECOST").GetComponent<Text>().text = "ALL THREE UPGRADES USED!";
+        }
+
         UpgradeScreen.GetComponent<UpgradeScreen_Manager>().setTowerManager(towerManager);
     }
 

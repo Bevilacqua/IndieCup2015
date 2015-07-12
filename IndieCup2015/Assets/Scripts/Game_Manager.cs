@@ -41,7 +41,13 @@ public class Game_Manager : MonoBehaviour {
             if(enemiesDeployed < round)
             {
                //TODO: randomize enemy deployment time
-                if(Random.Range(0, 200) == 2)
+                if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+                {
+                    mapManager.spawnEnemy((50f * difficulty), difficulty);
+                    enemiesDeployed++;
+                }
+                
+                if(Random.Range(0, 400) == 2)
                 {
                     mapManager.spawnEnemy((50f * difficulty), difficulty);
                     enemiesDeployed++;

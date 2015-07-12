@@ -40,7 +40,7 @@ public class Enemy_Manager : MonoBehaviour
             health -= collider.gameObject.GetComponent<Bullet_Info>().getDamage();
         else if (collider.gameObject.GetComponent<Bullet_Info>().getBulletClass() == Tower_Manager.Tower_Class.SLOW)
         {
-            if(speed > 0.1f)
+            if(speed > 0.5f)
                 speed -= collider.gameObject.GetComponent<Bullet_Info>().getDamage() / 100f;
         }
     }
