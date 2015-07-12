@@ -21,6 +21,7 @@ public class Game_Manager : MonoBehaviour {
         mapManager = GameObject.Find("Manager_Map").GetComponent<Map_Manager>();
         this.health = MAX_HEALTH;
         this.difficulty = MAX_DIFFICULTY;
+        if (MAX_DIFFICULTY == 2.5f && GameJolt.API.Manager.Instance.CurrentUser != null) GameJolt.API.Trophies.Unlock(34601);
         this.money = 0;
         UIManager.setHealth(health);
         UIManager.setMoney(money);
