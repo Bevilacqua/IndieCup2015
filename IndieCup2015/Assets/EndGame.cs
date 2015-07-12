@@ -4,6 +4,14 @@ using UnityEngine.UI;
 
 public class EndGame : MonoBehaviour {
     public static int roundNumber = 0;
+    public static Difficulty difficulty = Difficulty.NORMAL;
+
+    public enum Difficulty {
+        EASY,
+        NORMAL,
+        HARD,
+        EXTREME
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -34,7 +42,22 @@ public class EndGame : MonoBehaviour {
 
     public void postScore(Text text)
     {
-        GameJolt.API.Scores.Add(roundNumber, roundNumber + " rounds!", text.text, 81140, "");
+        switch (difficulty)
+        {
+            case Difficulty.EASY:
+                GameJolt.API.Scores.Add(roundNumber, roundNumber + " rounds!", text.text, 81174, "");
+                break;
+            case Difficulty.NORMAL:
+                GameJolt.API.Scores.Add(roundNumber, roundNumber + " rounds!", text.text, 81140, "");
+                break;
+            case Difficulty.HARD:
+                GameJolt.API.Scores.Add(roundNumber, roundNumber + " rounds!", text.text, 81768, "");
+                break;
+            case Difficulty.EXTREME:
+                GameJolt.API.Scores.Add(roundNumber, roundNumber + " rounds!", text.text, 81769, "");
+                break;
+        }
+
         GameJolt.UI.Manager.Instance.ShowLeaderboards();   
     }
 }
