@@ -54,4 +54,9 @@ public class PlayMenuLoad : MonoBehaviour {
     {
         Application.LoadLevel("default");
     }
+
+    public void goToAboutScreen()
+    {
+        Application.LoadLevel("about");
+    }
 }
