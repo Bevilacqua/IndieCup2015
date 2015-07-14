@@ -74,7 +74,7 @@ public class Map_Manager : MonoBehaviour
         map_info.getTileMap()[(int)goalLocation.x, (int)goalLocation.y].GetComponent<Tile_Manager>().setTowerManager(towerManager);
         temple.transform.parent = map_info.getTileMap()[(int)goalLocation.x, (int)goalLocation.y].transform;
         temple.transform.localPosition = new Vector3(0f, 1f, 0f);
-        towerManager.init(Tower_Manager.Tower_Class.TEMPLE, 40, 20);
+        towerManager.init(Tower_Manager.Tower_Class.TEMPLE, 40, 25);
 
         return true;
         

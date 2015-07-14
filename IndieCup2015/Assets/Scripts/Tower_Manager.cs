@@ -45,6 +45,8 @@ public class Tower_Manager : MonoBehaviour
         {
             if (towerClass == Tower_Class.TEMPLE && !Application.isMobilePlatform && Input.GetMouseButton(0))
                 shootAtMousePos();
+            else if (towerClass == Tower_Class.SLOW)
+                shootAtEnemyWithMostProgress();
             else
                 shootAtClosestEnemy();
 
@@ -58,14 +60,14 @@ public class Tower_Manager : MonoBehaviour
 
     public void calculateValue()
     {
-        value = Mathf.CeilToInt((speedOfAttack * 4) + (damage * 2));
+        value = Mathf.CeilToInt((1.5f + (upgradeCount)) * ((speedOfAttack * 4) + (damage * 2)));
     }
 
     private void shootAtMousePos()
     {
         if (towerClass == Tower_Class.MONEY)
         {
-            addMoney((int)damage);
+            addMoney((int)damage / 2);
             return;
         }
 
@@ -93,7 +95,7 @@ public class Tower_Manager : MonoBehaviour
     {
         if (towerClass == Tower_Class.MONEY)
         {
-            addMoney((int)damage);
+            addMoney((int)damage / 2);
             return;
         }
 
@@ -135,7 +137,7 @@ public class Tower_Manager : MonoBehaviour
     {
         if (towerClass == Tower_Class.MONEY)
         {
-            addMoney((int)damage);
+            addMoney((int)damage / 2);
             return;
         } 
         

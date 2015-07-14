@@ -20,7 +20,7 @@ public class UpgradeScreen_Manager : MonoBehaviour {
 
     public void upgrade()
     {
-        GameObject.Find("Manager_Game").GetComponent<Game_Manager>().subtractMoney(Mathf.FloorToInt(tower_manager.getValue() * .85f));
+        GameObject.Find("Manager_Game").GetComponent<Game_Manager>().subtractMoney(Mathf.FloorToInt(tower_manager.getValue() * .9f));
         tower_manager.upgrade();
     }
 

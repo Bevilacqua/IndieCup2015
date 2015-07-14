@@ -32,21 +32,21 @@ public class PlayMenuLoad : MonoBehaviour {
     public void setNormal()
     {
         EndGame.difficulty = EndGame.Difficulty.NORMAL;
-        Game_Manager.MAX_DIFFICULTY = 1.25f;
+        Game_Manager.MAX_DIFFICULTY = 1.15f;
         Game_Manager.MAX_HEALTH = 100;
     }
 
     public void setHard()
     {
         EndGame.difficulty = EndGame.Difficulty.HARD;
-        Game_Manager.MAX_DIFFICULTY = 1.5f;
+        Game_Manager.MAX_DIFFICULTY = 1.25f;
         Game_Manager.MAX_HEALTH = 100;
     }
 
     public void setExtreme()
     {
         EndGame.difficulty = EndGame.Difficulty.EXTREME;
-        Game_Manager.MAX_DIFFICULTY = 2.5f;
+        Game_Manager.MAX_DIFFICULTY = 1.5f;
         Game_Manager.MAX_HEALTH = 75;
     }
 

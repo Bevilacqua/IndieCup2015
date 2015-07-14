@@ -43,13 +43,13 @@ public class Game_Manager : MonoBehaviour {
                //TODO: randomize enemy deployment time
                 if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
                 {
-                    mapManager.spawnEnemy((50f * difficulty), difficulty);
+                    mapManager.spawnEnemy((40f * difficulty), (difficulty * .95f));
                     enemiesDeployed++;
                 }
                 
-                if(Random.Range(0, 400) == 2)
+                if(Random.Range(0, 420) < 2f)
                 {
-                    mapManager.spawnEnemy((50f * difficulty), difficulty);
+                    mapManager.spawnEnemy((45f * difficulty), (difficulty * .90f));
                     enemiesDeployed++;
                 }
             }
@@ -75,6 +75,7 @@ public class Game_Manager : MonoBehaviour {
 
         enemiesDeployed = 0;
         difficulty += .05f;
+        if (round > 15) difficulty += .1f;
         UIManager.alertRound(round);
         if (round == 1) return; //Player won't have any money at this point
         UIManager.getRewardUI().SetActive(true);
