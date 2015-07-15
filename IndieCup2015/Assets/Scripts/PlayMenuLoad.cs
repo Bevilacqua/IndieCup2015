@@ -3,12 +3,18 @@ using System.Collections;
 
 public class PlayMenuLoad : MonoBehaviour {
     private GameObject difficultyScreen;
+    private GameObject offImage;
 
 	// Use this for initialization
 	void Start () {
         GetComponent<Animator>().Play("MENULOAD");
         difficultyScreen = GameObject.Find("DIFFICULTYSELECT");
         difficultyScreen.SetActive(false);
+        offImage = GameObject.Find("OFF");
+        if(GameObject.Find("GameJoltAPI").GetComponent<AudioSource>().isPlaying)
+            offImage.SetActive(false);
+        else
+            offImage.SetActive(true);
 	}
 	
 	// Update is called once per frame
@@ -58,5 +64,19 @@ public class PlayMenuLoad : MonoBehaviour {
     public void goToAboutScreen()
     {
         Application.LoadLevel("about");
+    }
+
+    public void toggleMusic()
+    {
+        if(GameObject.Find("GameJoltAPI").GetComponent<AudioSource>().isPlaying)
+        {
+            GameObject.Find("GameJoltAPI").GetComponent<AudioSource>().Pause();
+            offImage.SetActive(true);
+        }
+        else
+        {
+            GameObject.Find("GameJoltAPI").GetComponent<AudioSource>().UnPause();
+            offImage.SetActive(false);
+        }
     }
 }
