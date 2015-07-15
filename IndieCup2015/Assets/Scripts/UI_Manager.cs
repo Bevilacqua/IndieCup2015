@@ -86,7 +86,7 @@ public class UI_Manager : MonoBehaviour {
         GameObject.Find("SELLCOST").GetComponent<Text>().text = " + $   " + towerManager.getValue();
         GameObject.Find("UPGRADECOST").GetComponent<Text>().text = " - $   " + Mathf.FloorToInt(towerManager.getValue() * .9f);
 
-        if ((Mathf.FloorToInt(towerManager.getValue() * .85f)) > GameObject.Find("Manager_Game").GetComponent<Game_Manager>().getMoney())
+        if ((Mathf.FloorToInt(towerManager.getValue() * .9f)) > GameObject.Find("Manager_Game").GetComponent<Game_Manager>().getMoney())
             GameObject.Find("UPGRADEBUTTON").GetComponent<Button>().interactable = false;
        
         if(!towerManager.canUpgrade())

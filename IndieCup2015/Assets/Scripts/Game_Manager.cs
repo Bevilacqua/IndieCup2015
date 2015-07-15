@@ -75,7 +75,7 @@ public class Game_Manager : MonoBehaviour {
 
         enemiesDeployed = 0;
         difficulty += .05f;
-        if (round > 15) difficulty += .1f;
+        if (round > 15) difficulty += .15f;
         UIManager.alertRound(round);
         if (round == 1) return; //Player won't have any money at this point
         UIManager.getRewardUI().SetActive(true);

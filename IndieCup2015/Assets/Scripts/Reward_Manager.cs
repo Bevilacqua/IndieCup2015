@@ -52,7 +52,7 @@ public class Reward_Manager : MonoBehaviour {
         }
 
         speed = Random.Range((20f + (round * .001f)), (25f + ((round * .001f) * 100f)));
-        power = Random.Range(5f + (round / 2) * 2f, 5f + (round) * 2f);
+        power = Random.Range(5f + (round / 3) * 2f, 5f + (round * .85f) * 2f);
         cost = Mathf.CeilToInt((speed * 4) + (power * 2) + ((round - 1) * 25f));
         float randVal = Random.Range(0, 100);
         if (randVal < 50)
@@ -70,7 +70,7 @@ public class Reward_Manager : MonoBehaviour {
 
         cost *= 2;
 
-        if (type == Tower_Manager.Tower_Class.SLOW || type == Tower_Manager.Tower_Class.MONEY) cost += 50;
+        if (type == Tower_Manager.Tower_Class.SLOW || type == Tower_Manager.Tower_Class.MONEY) cost =  Mathf.CeilToInt(cost * 1.25f);
 
         displayValues();
     }
