@@ -66,6 +66,11 @@ public class PlayMenuLoad : MonoBehaviour {
         Application.LoadLevel("about");
     }
 
+    public void goToHowScreen()
+    {
+        Application.LoadLevel("howto");
+    }
+
     public void toggleMusic()
     {
         if(GameObject.Find("GameJoltAPI").GetComponent<AudioSource>().isPlaying)

@@ -31,8 +31,6 @@ public class Map_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            GameObject.Find("Manager_Game").GetComponent<Game_Manager>().nextRound();
     }
 
     public void destroyMap()
